@@ -1,0 +1,2200 @@
+<!DOCTYPE html>
+<html lang="id" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MPP Kota Surabaya</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;700&display=swap" rel="stylesheet">
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<style>
+    /* Base Styles */
+    * {
+        font-family: 'Inter', sans-serif;
+        box-sizing: border-box;
+    }
+
+    body {
+        font-family: 'Ubuntu', sans-serif;
+        overflow-x: auto;
+    }
+    @media (min-width: 769px) {
+        body {
+            overflow-x: hidden; /* Cegah scroll horizontal di desktop & tablet */
+        }
+    }
+
+    /* Utility Classes */
+    .mt-1 { margin-top: calc(var(--spacing) * 1); }
+    .mt-2 { margin-top: calc(var(--spacing) * 2); }
+    .mt-3 { margin-top: calc(var(--spacing) * 3); }
+    .mt-4 { margin-top: calc(var(--spacing) * 4); }
+    .mt-5 { margin-top: calc(var(--spacing) * 5); }
+    .mt-7 { margin-top: calc(var(--spacing) * 7); }
+    .mt-8 { margin-top: calc(var(--spacing) * 8); }
+    .mt-9 { margin-top: calc(var(--spacing) * 9); }
+    .mt-10 { margin-top: calc(var(--spacing) * 10); }
+    .mt-11 { margin-top: calc(var(--spacing) * 11); }
+    .mt-12 { margin-top: calc(var(--spacing) * 12); }
+    .mt-13 { margin-top: calc(var(--spacing) * 13); }
+    .mt-14 { margin-top: calc(var(--spacing) * 14); }
+    .mt-15 { margin-top: calc(var(--spacing) * 15); }
+    .mt-16 { margin-top: calc(var(--spacing) * 16); }
+    .mt-17 { margin-top: calc(var(--spacing) * 17); }
+    .mt-18 { margin-top: calc(var(--spacing) * 18); }
+    .mt-19 { margin-top: calc(var(--spacing) * 19); }
+    .mt-20 { margin-top: calc(var(--spacing) * 20); }
+    .mt-21 { margin-top: calc(var(--spacing) * 21); }
+    .mt-22 { margin-top: calc(var(--spacing) * 22); }
+    .mt-23 { margin-top: calc(var(--spacing) * 23); }
+    .mt-24 { margin-top: calc(var(--spacing) * 24); }
+    .mt-25 { margin-top: calc(var(--spacing) * 25); }
+    
+    .mb-1 { margin-bottom: calc(var(--spacing) * 1); }
+    .mb-2 { margin-bottom: calc(var(--spacing) * 2); }
+    .mb-3 { margin-bottom: calc(var(--spacing) * 3); }
+    .mb-4 { margin-bottom: calc(var(--spacing) * 4); }
+    .mb-5 { margin-bottom: calc(var(--spacing) * 5); }
+    .mb-6 { margin-bottom: calc(var(--spacing) * 6); }
+    .mb-7 { margin-bottom: calc(var(--spacing) * 7); }
+    .mb-8 { margin-bottom: calc(var(--spacing) * 8); }
+    .mb-9 { margin-bottom: calc(var(--spacing) * 9); }
+    .mb-10 { margin-bottom: calc(var(--spacing) * 10); }
+    .mb-11 { margin-bottom: calc(var(--spacing) * 11); }
+    .mb-12 { margin-bottom: calc(var(--spacing) * 12); }
+    .mb-13 { margin-bottom: calc(var(--spacing) * 13); }
+    .mb-14 { margin-bottom: calc(var(--spacing) * 14); }
+    .mb-15 { margin-bottom: calc(var(--spacing) * 15); }
+    .mb-16 { margin-bottom: calc(var(--spacing) * 16); }
+    .mb-17 { margin-bottom: calc(var(--spacing) * 17); }
+    .mb-18 { margin-bottom: calc(var(--spacing) * 18); }
+    .mb-19 { margin-bottom: calc(var(--spacing) * 19); }
+    .mb-21 { margin-bottom: calc(var(--spacing) * 21); }
+    .mb-22 { margin-bottom: calc(var(--spacing) * 22); }
+    .mb-23 { margin-bottom: calc(var(--spacing) * 23); }
+    .mb-24 { margin-bottom: calc(var(--spacing) * 24); }
+    .mb-25 { margin-bottom: calc(var(--spacing) * 25); }
+
+    /* Text Sizes */
+    .text-2xl { font-size: 1.5rem; line-height: 2rem; }
+    .text-\[14px\] { font-size: 14px; }
+    .text-\[15px\] { font-size: 15px; }
+    .text-\[17px\] { font-size: 17px; }
+    .text-\[19px\] { font-size: 19px; }
+    .text-\[20px\] { font-size: 20px; }
+    .text-\[25px\] { font-size: 25px; }
+    .text-\[28px\] { font-size: 28px; }
+    .text-\[32px\] { font-size: 32px; }
+    .text-\[38px\] { font-size: 38px; }
+    .text-\[42px\] { font-size: 42px; }
+    .text-\[48px\] { font-size: 48px; }
+    .text-lg { font-size: 1.125rem; line-height: 1.75rem; }
+    .text-xl { font-size: 1.25rem; line-height: 1.75rem; }
+    .text-xg { font-size: 1.4rem; line-height: 1.75rem; }
+
+    /* Font Weights */
+    .font-bold { font-weight: 700; }
+    .font-medium { font-weight: 500; }
+    .font-semibold { font-weight: 600; }
+
+    /* Custom Colors */
+    .bg-BIRUDPM { background-color: #215ABA; }
+    .bg-KUNINGDPM { background-color: #FFC72F; }
+    .text-BIRUDPM { color: #215ABA; }
+    .text-KUNINGDPM { color: #FFC72F; }
+    .text-PUTIHDPM { color: #FFFFFF; }
+    .text-hitamdpm { color: #333333; }
+    .text-birudpmtext { color: #215ABA; }
+
+    /* Layout */
+    .pt-20 { padding-top: 7rem; }
+    .h-22 { height: 5.5rem; }
+
+    /* Animations */
+    @keyframes slideDown {
+        from { opacity: 0; transform: translateY(-20px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fadeIn {
+        from { opacity: 0; }
+        to { opacity: 1; }
+    }
+
+    @keyframes scaleIn {
+        from { opacity: 0; transform: scale(0.9); }
+        to { opacity: 1; transform: scale(1); }
+    }
+
+    @keyframes slideRight {
+        from { opacity: 0; transform: translateX(-30px); }
+        to { opacity: 1; transform: translateX(0); }
+    }
+
+    @keyframes slideLeft {
+        from { opacity: 0; transform: translateX(30px); }
+        to { opacity: 1; transform: translateX(0); }
+    }
+
+    @keyframes float {
+        0%, 100% { transform: translateY(0px); }
+        50% { transform: translateY(-10px); }
+    }
+
+    @keyframes pulse-slow {
+        0%, 100% { opacity: 1; }
+        50% { opacity: 0.8; }
+    }
+
+    @keyframes scroll {
+        0% { transform: translateX(0); }
+        100% { transform: translateX(-50%); }
+    }
+
+    @keyframes marquee {
+        0% { transform: translateX(100%); }
+        100% { transform: translateX(-100%); }
+    }
+
+    @keyframes fadeUp {
+        0% { opacity: 0; transform: translateY(20px); }
+        100% { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes blob {
+        0%, 100% { border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%; }
+        25% { border-radius: 58% 42% 75% 25% / 76% 46% 54% 24%; }
+        50% { border-radius: 50% 50% 33% 67% / 55% 27% 73% 45%; }
+        75% { border-radius: 33% 67% 58% 42% / 63% 68% 32% 37%; }
+    }
+
+    @keyframes ripple {
+        to { transform: scale(4); opacity: 0; }
+    }
+
+    /* Animation Classes */
+    .animate-slideDown { animation: slideDown 0.6s ease-out; }
+    .animate-fadeIn { animation: fadeIn 0.8s ease-out; }
+    .animate-scaleIn { animation: scaleIn 0.5s ease-out; }
+    .animate-slideRight { animation: slideRight 0.7s ease-out; }
+    .animate-slideLeft { animation: slideLeft 0.7s ease-out; }
+    .animate-float { animation: float 3s ease-in-out infinite; }
+    .animate-pulse-slow { animation: pulse-slow 2s ease-in-out infinite; }
+    .animate-marquee { animation: marquee 20s linear infinite; }
+    .animate-blob { animation: blob 7s infinite; }
+    .fade-up { animation: fadeUp 0.5s ease-out forwards; }
+
+    /* Components */
+    .title {
+        font-size: 34px;
+        font-weight: 700;
+        margin-bottom: 25px;
+        text-align: center;
+    }
+
+    .title span {
+        color: #005cff;
+    }
+
+    .wrapper {
+        display: flex;
+        gap: 40px;
+        align-items: flex-start;
+        padding: 0 20px;
+    }
+
+    @media (max-width: 1024px) {
+        .wrapper {
+            flex-direction: column;
+            padding: 0 15px;
+        }
+    }
+
+    @media (max-width: 768px) {
+        .wrapper {
+            padding: 0 10px;
+        }
+        .chart-card {
+            width: 100%;
+            padding: 15px;
+        }
+
+        #grafik {
+            height: 300px;
+        }
+    }
+
+    .deskripsi {
+        width: 100%;
+        max-width: 400px;
+        font-size: 15px;
+        line-height: 22px;
+        color: #333;
+        margin-bottom: 20px;
+    }
+
+    .chart-card {
+        background: #fff;
+        border-radius: 18px;
+        padding: 25px;
+        width: 680px;
+        max-width: 800px;
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+    }
+
+    #grafik {
+        height: 300px;
+    }
+
+    @media (min-width: 768px) {
+        #grafik {
+            height: 450px;
+        }
+    }
+
+    @media (min-width: 1024px) {
+        #grafik {
+            height: 420px;
+        }
+    }
+
+    /* navbar */
+    .nav-item {
+        transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        overflow: hidden;
+        position: relative;
+    }
+
+    .bg-gradient-blue {
+        background: linear-gradient(90deg, #215ABA 20.67%, #174391 100%);
+        transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+
+    .nav-item.active .bg-gradient-blue,
+    .nav-item:hover .bg-gradient-blue {
+        background: linear-gradient(90deg, #FFC72F 0%, #FFE600 100%);
+    }
+
+    .icon-white {
+        background: #FFFFFF;
+        transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+
+    .nav-item.active .icon-white,
+    .nav-item:hover .icon-white {
+        background: #0F00FF;
+        transform: scale(1.1);
+    }
+
+    .logo-unhover,
+    .logo-hover {
+        transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+
+    .logo-hover {
+        opacity: 0;
+        position: absolute;
+        top: 0;
+        left: 0;
+    }
+
+    .nav-item.active .logo-unhover,
+    .nav-item:hover .logo-unhover {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+
+    .nav-item.active .logo-hover,
+    .nav-item:hover .logo-hover {
+        opacity: 1;
+        transform: scale(1);
+    }
+
+    /* Content Cards */
+    .content-card {
+        transition: all 0.4s ease;
+        cursor: pointer;
+        width: 100%;
+        max-width: 320px;
+        border-radius: 20px;
+    }
+
+    .content-card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0px 8px 25px 10px rgba(255, 235, 0, 0.6);
+    }
+
+    .content-image {
+        transition: all 0.5s ease;
+        width: 100%;
+        height: 176px;
+        object-fit: cover;
+    }
+
+    .content-title {
+        transition: all 0.3s ease;
+    }
+
+    .content-card:hover .content-title {
+        color: #215ABA;
+    }
+
+    /* Card Content Box */
+    .card-content-box {
+        transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    .group:hover .card-content-box {
+        background-color: #FFC72F;
+    }
+
+    .group:hover .card-title {
+        color: #333333;
+    }
+
+    .group:hover .card-desc {
+        color: #215ABA;
+    }
+
+    /* Carousel */
+    .carousel-slide {
+        transition: opacity 0.5s ease;
+    }
+
+    .logo-scroll {
+        animation: scroll 30s linear infinite;
+    }
+
+    .logo-scroll:hover {
+        animation-play-state: paused;
+    }
+
+    /* Dark Mode Styles */
+    body.dark-mode {
+        background-color: #1a1a1a;
+        color: #ffffff;
+        transition: all 0.3s ease;
+    }
+
+    .dark-mode .bg-white {
+        background-color: #2d2d2d !important;
+    }
+
+    .dark-mode .bg-gray-100 {
+        background-color: #1a1a1a !important;
+    }
+
+    .dark-mode .bg-blue-50 {
+        background-color: #2a4365 !important;
+    }
+
+    .dark-mode .text-gray-700,
+    .dark-mode .text-gray-800,
+    .dark-mode .text-gray-900,
+    .dark-mode .text-gray-600,
+    .dark-mode .text-black {
+        color: #e2e8f0 !important;
+    }
+
+    .dark-mode .title span {
+        color: #FFD700 !important;
+    }
+
+    .dark-mode .text-blue-700,
+    .dark-mode .text-BIRUDPM,
+    .dark-mode .text-birudpmtext {
+        color: #FFD700 !important;
+    }
+
+    .dark-mode .bg-BIRUDPM {
+        background-color: #FFC72F !important;
+    }
+
+    .dark-mode .text-KUNINGDPM {
+        color: #215ABA !important;
+    }
+
+    .dark-mode .bg-KUNINGDPM {
+        background-color: #215ABA !important;
+    }
+
+    .dark-mode .gradient-blue {
+        background: linear-gradient(135deg, #FFC72F 0%, #FFD700 100%) !important;
+    }
+
+    .dark-mode .card-content-box {
+        background-color: #FFC72F !important;
+    }
+
+    .dark-mode .header-container .dark-mode-keep-white {
+        color: #ffffff !important;
+    }
+
+    .dark-mode .card-title.text-KUNINGDPM {
+        color: #215ABA !important;
+    }
+
+    .dark-mode .card-desc.text-white {
+        color: #215ABA !important;
+    }
+
+    .dark-mode .deskripsi {
+        color: #ffffff !important;
+    }
+
+    .dark-mode .bg-gradient-blue {
+        background: linear-gradient(90deg, #FFC72F 0%, #FFE600 100%) !important;
+    }
+
+    .dark-mode .text-white:not(.dark-mode-keep-white) {
+        color: #1a1a1a !important;
+    }
+
+    .dark-mode .bg-gray-900 {
+        background-color: #0f0f0f !important;
+    }
+
+    .dark-mode .text-gray-300 {
+        color: #cbd5e0 !important;
+    }
+
+    .dark-mode .bg-blue-800 {
+        background-color: #FFC72F !important;
+    }
+
+    .dark-mode .bg-yellow-400 {
+        background-color: #215ABA !important;
+    }
+
+    .dark-mode .text-yellow-400 {
+        color: #215ABA !important;
+    }
+
+    .dark-mode .border-gray-200,
+    .dark-mode .border-gray-700 {
+        border-color: #4a5568 !important;
+    }
+
+    .dark-mode .bg-gradient-to-br.from-blue-50.to-yellow-50 {
+        background: linear-gradient(to bottom right, #2a4365, #744210) !important;
+    }
+
+    .dark-mode .shadow-lg,
+    .dark-mode .shadow-xl {
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5) !important;
+    }
+
+    .dark-mode .chart-card {
+        background: #2d2d2d !important;
+        color: #ffffff !important;
+    }
+
+    .dark-mode #grafik .highcharts-background {
+        fill: #2d2d2d !important;
+    }
+
+    .dark-mode #grafik .highcharts-title {
+        fill: #ffffff !important;
+        color: #ffffff !important;
+    }
+
+    .dark-mode #grafik .highcharts-axis-title,
+    .dark-mode #grafik .highcharts-axis-labels {
+        fill: #e2e8f0 !important;
+        color: #e2e8f0 !important;
+    }
+
+    .dark-mode #grafik .highcharts-grid-line {
+        stroke: #4a5568 !important;
+    }
+
+    .dark-mode .content-card:hover .content-title {
+        color: #FFD700 !important;
+    }
+
+    .dark-mode .group:hover .card-title {
+        color: #1a1a1a !important;
+    }
+
+    .dark-mode .group:hover .card-desc {
+        color: #FFD700 !important;
+    }
+
+    /* Responsive */
+    .responsive-grid {
+        display: grid;
+        grid-template-columns: repeat(1, 1fr);
+        gap: 1.5rem;
+    }
+
+    @media (min-width: 768px) {
+        .responsive-grid {
+            grid-template-columns: repeat(2, 1fr);
+        }
+    }
+
+    @media (min-width: 1024px) {
+        .responsive-grid {
+            grid-template-columns: repeat(3, 1fr);
+        }
+    }
+
+    .nav-menu-desktop {
+        display: none;
+        
+    }
+
+    @media (min-width: 768px) {
+        .nav-menu-desktop {
+            display: flex;
+        }
+    }
+
+    .mobile-menu-btn {
+        display: block;
+    }
+
+    @media (min-width: 768px) {
+        .mobile-menu-btn {
+            display: none;
+        }
+    }
+
+    .mobile-menu-hidden {
+        transform: translateX(-100%);
+    }
+
+    .mobile-menu-visible {
+        transform: translateX(0);
+    }
+
+    /* Ripple Effect */
+    .ripple {
+        position: absolute;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.3);
+        transform: scale(0);
+        animation: ripple 0.6s linear;
+        pointer-events: none;
+    }
+
+    /* Line clamp */
+    .line-clamp-2 {
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+
+    /* Gradient Backgrounds */
+    .gradient-blue {
+        background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%);
+    }
+
+    .gradient-yellow {
+        background: linear-gradient(135deg, #fbbf24 0%, #fcd34d 100%);
+    }
+
+    /* Buttons */
+    .btn-primary {
+        background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%);
+        transition: all 0.3s ease;
+    }
+
+    .btn-primary:hover {
+        background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 100%);
+        transform: translateY(-2px);
+        box-shadow: 0 10px 20px rgba(30, 64, 175, 0.3);
+    }
+
+    .btn-secondary {
+        background: linear-gradient(135deg, #fbbf24 0%, #fcd34d 100%);
+        transition: all 0.3s ease;
+    }
+
+    .btn-secondary:hover {
+        background: linear-gradient(135deg, #f59e0b 0%, #fbbf24 100%);
+        transform: translateY(-2px);
+        box-shadow: 0 10px 20px rgba(251, 191, 36, 0.3);
+    }
+
+    /* Fix for tab bar overflow */
+    .tab-bar-container {
+        width: 100%;
+        max-width: 1016px;
+        overflow: hidden;
+        position: relative;
+        margin: 0 auto;
+    }
+
+    @media (max-width: 1024px) {
+        .tab-bar-container {
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+        
+        .tab-bar-inner {
+            min-width: 800px;
+        }
+    }
+
+    /* Fix for carousel */
+    .carousel-container {
+        overflow: hidden;
+        position: relative;
+    }
+
+    .carousel-track {
+        display: flex;
+        transition: transform 0.5s ease-in-out;
+    }
+
+    .carousel-slide {
+        flex: 0 0 100%;
+        min-width: 100%;
+    }
+</style>
+
+<body class="bg-gray-100 flex flex-col items-center justify-center min-h-screen">
+    <!-- NAVBAR HITAM RESPONSIF -->
+    <header class="w-full bg-black text-gray-200 text-sm">
+        <div class="max-w-7xl mx-auto px-4 h-10 flex items-center justify-between">
+            <!-- TANGGAL -->
+            <div class="hidden sm:block">
+                Senin, 27 November 2025
+            </div>
+            <!-- BERITA TERBARU -->
+            <div class="flex items-center gap-2 w-full sm:w-auto overflow-hidden">
+                <span class="font-semibold whitespace-nowrap hidden sm:inline">Berita terbaru:</span>
+                <div class="relative w-full sm:w-auto overflow-hidden">
+                    <div class="animate-marquee whitespace-nowrap !text-yellow-400">
+                        MPP Surabaya menerima penghargaan pelayanan publik terbaik
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- NAVBAR PUTIH -->
+    <nav class="w-full sticky bg-white shadow-md">
+        <div class="max-w-7xl mx-auto px-4 h-20 flex items-center justify-between">
+            <!-- LOGO -->
+            <div class="flex items-center">
+                <img src="gambar/logo.png" class="h-10 md:h-12" alt="Logo" id="main-logo">
+            </div>
+
+            <!-- DESKTOP MENU -->
+            <ul class="nav-menu-desktop items-center gap-4 md:gap-8 text-gray-800 font-medium">
+                <li class="group relative">
+                    <a class="hover:text-blue-600 cursor-pointer text-sm md:text-base">Beranda</a>
+                </li>
+                <li class="group relative">
+                    <a class="hover:text-blue-600 cursor-pointer text-sm md:text-base">Tentang Kami</a>
+                    <!-- DROPDOWN -->
+                    <div class="absolute left-0 mt-4 hidden group-hover:block bg-white shadow-lg rounded-lg w-48 md:w-64 p-4 z-50">
+                        <ul class="text-gray-700 space-y-2">
+                            <li><a class="hover:text-blue-600 text-sm md:text-base">Profil</a></li>
+                            <li><a class="hover:text-blue-600 text-sm md:text-base">Struktur Organisasi</a></li>
+                            <li><a class="hover:text-blue-600 text-sm md:text-base">Visi & Misi</a></li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="group relative">
+                    <a class="hover:text-blue-600 cursor-pointer text-sm md:text-base">Investasi</a>
+                    <!-- MEGA DROPDOWN -->
+                    <div class="absolute left-0 mt-4 hidden group-hover:block bg-white shadow-xl rounded-lg w-[90vw] md:w-[600px] p-4 md:p-6 z-50">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 text-gray-700">
+                            <div>
+                                <h4 class="font-semibold mb-2 md:mb-3 text-sm md:text-base">Perizinan</h4>
+                                <ul class="space-y-1 md:space-y-2">
+                                    <li><a class="hover:text-blue-600 text-sm md:text-base">OSS-RBA</a></li>
+                                    <li><a class="hover:text-blue-600 text-sm md:text-base">IMB / PBG</a></li>
+                                    <li><a class="hover:text-blue-600 text-sm md:text-base">NIB</a></li>
+                                </ul>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold mb-2 md:mb-3 text-sm md:text-base">Informasi</h4>
+                                <ul class="space-y-1 md:space-y-2">
+                                    <li><a class="hover:text-blue-600 text-sm md:text-base">Profil Investasi</a></li>
+                                    <li><a class="hover:text-blue-600 text-sm md:text-base">Potensi Daerah</a></li>
+                                    <li><a class="hover:text-blue-600 text-sm md:text-base">Laporan Realisasi</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li><a class="hover:text-blue-600 text-sm md:text-base">Aplikasi</a></li>
+                <li><a class="hover:text-blue-600 text-sm md:text-base">Kontak & Pengaduan</a></li>
+            </ul>
+
+            <!-- MOBILE BUTTON -->
+            <button id="mobileBtn" class="mobile-menu-btn text-2xl md:text-3xl text-gray-800">
+                ☰
+            </button>
+        </div>
+    </nav>
+
+    <!-- NAVBAR BIRU -->
+    <div class="w-full bg-blue-800 shadow">
+        <div class="max-w-7xl mx-auto px-4">
+            <ul class="hidden md:flex gap-6 md:gap-8 text-white font-medium h-10 md:h-12 items-center">
+                <li><a href="#" class="hover:text-yellow-400 text-sm md:text-base">Informasi</a></li>
+                <li><a href="#" class="hover:text-yellow-400 text-sm md:text-base">Loket Pelayanan</a></li>
+                <li><a href="#" class="hover:text-yellow-400 text-sm md:text-base">Jenis Perizinan</a></li>
+                <li><a href="#" class="hover:text-yellow-400 text-sm md:text-base">Agenda</a></li>
+                <li><a href="#" class="hover:text-yellow-400 text-sm md:text-base">FAQ</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- MOBILE MENU -->
+    <div id="mobileMenu" class="fixed top-0 left-0 w-64 h-full bg-white shadow-xl z-50 transform -translate-x-full transition-transform">
+        <div class="p-4 border-b flex justify-between items-center">
+            <img src="gambar/logo.png" class="h-10">
+            <button id="closeMenu" class="text-2xl">✕</button>
+        </div>
+        <ul class="p-4 text-gray-800 font-medium space-y-4">
+            <li>Beranda</li>
+            <li>
+                <button class="w-full flex justify-between items-center" onclick="toggleDropdown('m1')">
+                    Tentang Kami ▾
+                </button>
+                <ul id="m1" class="ml-4 mt-2 hidden space-y-2 text-gray-600">
+                    <li>Profil</li>
+                    <li>Struktur Organisasi</li>
+                    <li>Visi & Misi</li>
+                </ul>
+            </li>
+            <li>
+                <button class="w-full flex justify-between items-center" onclick="toggleDropdown('m2')">
+                    Investasi ▾
+                </button>
+                <ul id="m2" class="ml-4 mt-2 hidden space-y-2 text-gray-600">
+                    <li>OSS-RBA</li>
+                    <li>NIB</li>
+                    <li>Potensi Daerah</li>
+                </ul>
+            </li>
+            <li>Aplikasi</li>
+            <li>Kontak & Pengaduan</li>
+            <hr>
+            <li class="text-blue-800 font-bold">Menu Biru:</li>
+            <li>Informasi</li>
+            <li>Pelayanan</li>
+            <li>Agenda</li>
+            <li>FAQ</li>
+        </ul>
+    </div>
+
+    <!-- CAROUSEL SECTION -->
+    <section class="relative w-full h-[340px] md:h-[460px] overflow-hidden header-container">
+        <!-- Carousel Container -->
+        <div id="carousel" class="relative w-full h-full">
+            <!-- Slide 1 -->
+            <div class="carousel-slide absolute inset-0 w-full h-full transition-opacity duration-500 opacity-100" data-index="0">
+                <!-- Background Image -->
+                <img class="absolute inset-0 w-full h-full object-cover object-center"
+                    src="https://dpm-ptsp.surabaya.go.id/carousel/5.png"
+                    alt="Banner 1">
+
+                <!-- RIGHT COLOR LAYERS -->
+                <div class="absolute right-0 top-0 h-full w-[45%] md:w-[500px] flex justify-end">
+                    <div class="hidden md:block relative w-full h-full">
+                        <div class="absolute right-0 top-0 w-full h-full bg-blue-700/60"></div>
+                        <div class="absolute right-[80px] top-0 w-44 h-full bg-yellow-500 skew-x-12 origin-top"></div>
+                        <div class="absolute right-[130px] top-0 w-40 h-72 bg-blue-700 skew-x-12 origin-top"></div>
+                    </div>
+                    <div class="md:hidden w-full h-full bg-blue-700/60"></div>
+                </div>
+
+                <!-- TEXT BOX -->
+                <div class="absolute z-20 header-text text-white dark-mode-keep-white left-4 md:left-auto right-4 md:right-12 bottom-24 md:top-32 md:pr-28">
+                    <h3 class="font-bold text-lg md:text-xl leading-tight">
+                        KLINIK <span class="!text-yellow-400">INVESTASI</span>
+                    </h3>
+                    <p class="title-desc text-sm md:text-base mt-1">KONSULTASI PERIZINAN DI</p>
+                    <p class="title-desc text-sm md:text-base -mt-1">KOTA SURABAYA</p>
+                    <a class="mt-4 inline-block !bg-yellow-400 hover:!bg-yellow-300 !text-blue-800 font-bold text-[10px] md:text-sm px-3 py-[5px] md:px-6 md:py-2 rounded-full transition">
+                        BACA SELENGKAPNYA ›
+                    </a>
+                </div>
+            </div>
+
+            <!-- Slide 2 -->
+            <div class="carousel-slide absolute inset-0 w-full h-full transition-opacity duration-500 opacity-0" data-index="1">
+                <!-- Background Image -->
+                <img class="absolute inset-0 w-full h-full object-cover object-center"
+                    src="https://images.unsplash.com/photo-1589829545856-d10d557cf95f?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070"
+                    alt="Banner 2">
+
+                <!-- RIGHT COLOR LAYERS -->
+                <div class="absolute right-0 top-0 h-full w-[45%] md:w-[500px] flex justify-end">
+                    <div class="hidden md:block relative w-full h-full">
+                        <div class="absolute right-0 top-0 w-full h-full bg-blue-700/60"></div>
+                        <div class="absolute right-[80px] top-0 w-44 h-full bg-yellow-500 skew-x-12 origin-top"></div>
+                        <div class="absolute right-[130px] top-0 w-40 h-72 bg-blue-700 skew-x-12 origin-top"></div>
+                    </div>
+                    <div class="md:hidden w-full h-full bg-blue-700/60"></div>
+                </div>
+
+                <!-- TEXT BOX -->
+                <div class="absolute z-20 header-text text-white dark-mode-keep-white left-4 md:left-auto right-4 md:right-12 bottom-24 md:top-32 md:pr-28">
+                    <h3 class="font-bold text-lg md:text-xl leading-tight">
+                        PELAYANAN <span class="!text-yellow-400">TERBAIK</span>
+                    </h3>
+                    <p class="text-sm md:text-base mt-1">UNTUK INVESTOR DAN</p>
+                    <p class="text-sm md:text-base -mt-1">PENGUSAHA DI SURABAYA</p>
+                    <a class="mt-4 inline-block !bg-yellow-400 hover:!bg-yellow-300 !text-blue-800 font-bold text-[10px] md:text-sm px-3 py-[5px] md:px-6 md:py-2 rounded-full transition">
+                        LIHAT INFORMASI ›
+                    </a>
+                </div>
+            </div>
+
+            <!-- Slide 3 -->
+            <div class="carousel-slide absolute inset-0 w-full h-full transition-opacity duration-500 opacity-0" data-index="2">
+                <!-- Background Image -->
+                <img class="absolute inset-0 w-full h-full object-cover object-center"
+                    src="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070"
+                    alt="Banner 3">
+
+                <!-- RIGHT COLOR LAYERS -->
+                <div class="absolute right-0 top-0 h-full w-[45%] md:w-[500px] flex justify-end">
+                    <div class="hidden md:block relative w-full h-full">
+                        <div class="absolute right-0 top-0 w-full h-full bg-blue-700/60"></div>
+                        <div class="absolute right-[80px] top-0 w-44 h-full bg-yellow-500 skew-x-12 origin-top"></div>
+                        <div class="absolute right-[130px] top-0 w-40 h-72 bg-blue-700 skew-x-12 origin-top"></div>
+                    </div>
+                    <div class="md:hidden w-full h-full bg-blue-700/60"></div>
+                </div>
+
+                <!-- TEXT BOX -->
+                <div class="absolute z-20 header-text text-white dark-mode-keep-white left-4 md:left-auto right-4 md:right-12 bottom-24 md:top-32 md:pr-28">
+                    <h3 class="font-bold text-lg md:text-xl leading-tight">
+                        POTENSI <span class="!text-yellow-400">DAERAH</span>
+                    </h3>
+                    <p class="text-sm md:text-base mt-1">EKSPLORASI PELUANG INVESTASI</p>
+                    <p class="text-sm md:text-base -mt-1">DI KOTA SURABAYA</p>
+                    <a class="mt-4 inline-block !bg-yellow-400 hover:!bg-yellow-300 !text-blue-800 font-bold text-[10px] md:text-sm px-3 py-[5px] md:px-6 md:py-2 rounded-full transition">
+                        EXPLORE POTENSI ›
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Navigation Dots -->
+        <div class="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex gap-2 z-30">
+            <button class="carousel-dot w-2 h-2 md:w-3 md:h-3 rounded-full bg-white/60 hover:bg-white transition" data-index="0"></button>
+            <button class="carousel-dot w-2 h-2 md:w-3 md:h-3 rounded-full bg-white/60 hover:bg-white transition" data-index="1"></button>
+            <button class="carousel-dot w-2 h-2 md:w-3 md:h-3 rounded-full bg-white/60 hover:bg-white transition" data-index="2"></button>
+        </div>
+
+        <!-- ROUND BUTTONS: Navigation -->
+        <div class="absolute z-30 flex flex-col gap-2 right-3 top-1/2 -translate-y-1/2 md:right-6 md:gap-3">
+            <!-- Previous Button -->
+            <button id="prevBtn" class="w-8 h-8 md:w-12 md:h-12 bg-white/80 rounded-full flex justify-center items-center shadow hover:bg-white transition">
+                <span class="text-blue-800 text-md md:text-xl font-bold">⮜</span>
+            </button>
+            
+            <button class="w-12 h-12 rounded-full bg-white/80 backdrop-blur shadow flex items-center justify-center hover:bg-white dark-mode-toggle">
+                <span class="text-blue-800 text-xl font-bold">★</span>
+            </button>
+
+            <!-- Info Button -->
+            <button class="w-8 h-8 md:w-12 md:h-12 bg-white/80 rounded-full flex justify-center items-center shadow hover:bg-white transition">
+                <span class="text-blue-800 text-md md:text-xl font-bold">i</span>
+            </button>
+        </div>
+    </section>
+
+    <!-- DESKRIPSI -->
+    <section class="py-8 md:py-16 px-4 md:px-20 flex flex-col lg:flex-row gap-8 md:gap-12 items-start bg-white">
+        <div class="flex-1 relative">
+            <div class="mb-4 md:mb-6">
+                <h2 class="text-2xl md:text-4xl font-bold leading-tight">
+                    Melayani masyarakat dan <br class="hidden md:block" />pelaku usaha untuk
+                    <span class="text-blue-700">kemudahan</span> <br class="hidden md:block" />
+                    <span class="text-BIRUDPM">perizinan</span> di Kota Surabaya
+                </h2>
+            </div>
+            <img class="w-full max-w-[566px] h-48 md:h-96 object-cover rounded-xl mt-4 md:mt-8" src="gambar/descpict.png" alt="Layanan" />
+        </div>
+
+        <div class="flex-1 pt-2 md:pt-4">
+            <div class="flex flex-col md:flex-row justify-between items-start mb-4 md:mb-6 border-b border-gray-200 pb-4">
+                <div>
+                    <span class="text-lg md:text-xl font-bold">DPM-PTSP </span>
+                    <span class="text-lg md:text-xl">Surabaya</span>
+                </div>
+                <div class="text-lg md:text-xl font-bold">Nomor 084 Tahun 2021</div>
+            </div>
+
+            <p class="text-gray-600 text-base md:text-lg leading-relaxed text-justify mb-6 md:mb-10">
+                Dinas Penanaman Modal dan Pelayanan Terpadu Satu Pintu (DPM-PTSP) Kota Surabaya menyelenggarakan
+                pelayanan perizinan dan non-perizinan secara terpadu, cepat, transparan, dan efisien. Melalui
+                transformasi digital, DPM-PTSP berkomitmen menghadirkan kemudahan berusaha dan mendorong iklim investasi
+                yang kondusif di Kota Surabaya.
+            </p>
+
+            <div class="flex flex-col gap-4 md:gap-6">
+                <div class="flex items-center gap-4 p-3 md:p-4 bg-blue-50 rounded-xl">
+                    <div class="w-8 h-8 md:w-12 md:h-12 gradient-blue rounded-full flex items-center justify-center text-white text-base md:text-xl">✓</div>
+                    <div class="text-lg md:text-2xl font-bold">
+                        <span class="text-BIRUDPM">Izin Diterbitkan</span> <span class="text-orange-500">25.000+</span>
+                    </div>
+                </div>
+                <div class="flex items-center gap-4 p-3 md:p-4 bg-blue-50 rounded-xl">
+                    <div class="w-8 h-8 md:w-12 md:h-12 gradient-blue rounded-full flex items-center justify-center text-white text-base md:text-xl">✓</div>
+                    <div class="text-lg md:text-2xl font-bold">
+                        <span class="text-BIRUDPM">Pelaku Usaha Terlayani</span> <span class="text-orange-500">5.000+</span>
+                    </div>
+                </div>
+                <div class="flex items-center gap-4 p-3 md:p-4 bg-blue-50 rounded-xl">
+                    <div class="w-8 h-8 md:w-12 md:h-12 gradient-blue rounded-full flex items-center justify-center text-white text-base md:text-xl">✓</div>
+                    <div class="text-lg md:text-2xl font-bold">
+                        <span class="text-BIRUDPM">Layanan Digital Aktif</span> <span class="text-orange-500">50+</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- STATISTIK -->
+    <div class="title pt-20 pb-10 px-4"><span>Statistik</span> Realisasi Investasi</div>
+
+    <div class="wrapper px-4">
+        <div class="deskripsi">
+            Realisasi Investasi didapat dari laporan kegiatan penanaman modal (LKPM)
+            yang disetujui oleh DPMPTSP Kota Surabaya dan Kementerian Investasi RI
+            melalui aplikasi LKPM Online.
+        </div>
+
+        <div class="chart-card">
+            <div id="grafik"></div>
+        </div>
+    </div>
+
+    <!-- MENGAPA SURABAYA -->
+    <section class="py-12 md:py-16 flex flex-col items-center mb-8 md:mb-12 px-4">
+        <div class="text-center mb-8 md:mb-16 pt-8 md:pt-20 relative">
+            <h2 class="text-2xl md:text-[36px] font-bold mb-2">
+                Mengapa <span class="text-blue-700">Surabaya</span>
+            </h2>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 lg:gap-12 w-full max-w-7xl">
+            <!-- Card 1 -->
+            <div class="relative group w-full max-w-[320px] mx-auto h-[360px] md:h-[400px]">
+                <img class="w-full h-56 md:h-72 object-cover rounded-3xl shadow-md" src="gambar/konten.png" alt="Iklim Investasi" />
+                <div class="card-content-box absolute bottom-6 md:bottom-10 left-1/2 transform -translate-x-1/2 w-[85%] md:w-64 h-32 md:h-40 bg-BIRUDPM rounded-3xl p-3 md:p-4 flex flex-col items-center justify-center text-center shadow-lg group-hover:-translate-y-2 transition duration-300">
+                    <div class="relative w-10 h-10 md:w-12 md:h-12 mb-2">
+                        <img src="gambar/IKLIMINVESTASIVECTOR-putih.svg" alt="Iklim Investasi" class="logo-unhover w-full h-full" />
+                        <img src="gambar/IKLIMINVESTASIVECTOR-biru.svg" alt="Iklim Investasi" class="logo-hover w-full h-full" />
+                    </div>
+                    <h4 class="card-title text-KUNINGDPM font-bold text-sm md:text-base mb-1">Iklim Investasi</h4>
+                    <p class="card-desc text-white text-xs font-medium">Pembangunan di Surabaya tumbuh sangat cepat.</p>
+                </div>
+            </div>
+
+            <!-- Card 2 -->
+            <div class="relative group w-full max-w-[320px] mx-auto h-[360px] md:h-[400px]">
+                <img class="w-full h-56 md:h-72 object-cover rounded-3xl shadow-md" src="gambar/konten.png" alt="Kota Terbesar" />
+                <div class="card-content-box absolute bottom-6 md:bottom-10 left-1/2 transform -translate-x-1/2 w-[85%] md:w-64 h-32 md:h-40 bg-BIRUDPM rounded-3xl p-3 md:p-4 flex flex-col items-center justify-center text-center shadow-lg group-hover:-translate-y-2 transition duration-300">
+                    <div class="relative w-10 h-10 md:w-12 md:h-12 mb-2">
+                        <img src="gambar/KOTATERBESARVECTOR-putih.svg" alt="Kota Terbesar" class="logo-unhover w-full h-full" />
+                        <img src="gambar/KOTATERBESARVECTOR-biru.svg" alt="Kota Terbesar" class="logo-hover w-full h-full" />
+                    </div>
+                    <h4 class="card-title text-KUNINGDPM font-bold text-sm md:text-base mb-1">Kota Terbesar</h4>
+                    <p class="card-desc text-white text-xs font-medium">Kota metropolitan terbesar kedua di Indonesia.</p>
+                </div>
+            </div>
+
+            <!-- Card 3 -->
+            <div class="relative group w-full max-w-[320px] mx-auto h-[360px] md:h-[400px]">
+                <img class="w-full h-56 md:h-72 object-cover rounded-3xl shadow-md" src="gambar/konten.png" alt="Bandara Pelabuhan" />
+                <div class="card-content-box absolute bottom-6 md:bottom-10 left-1/2 transform -translate-x-1/2 w-[85%] md:w-64 h-32 md:h-40 bg-BIRUDPM rounded-3xl p-3 md:p-4 flex flex-col items-center justify-center text-center shadow-lg group-hover:-translate-y-2 transition duration-300">
+                    <div class="relative w-10 h-10 md:w-12 md:h-12 mb-2">
+                        <img src="gambar/BANDARAPELABUHANVESCTOR-putih.svg" alt="Bandara Pelabuhan" class="logo-unhover w-full h-full" />
+                        <img src="gambar/BANDARAPELABUHANVESCTOR-biru.svg" alt="Bandara Pelabuhan" class="logo-hover w-full h-full" />
+                    </div>
+                    <h4 class="card-title text-KUNINGDPM font-bold text-sm md:text-base mb-1">Bandara Pelabuhan</h4>
+                    <p class="card-desc text-white text-xs font-medium">Berstandar dan bertaraf internasional.</p>
+                </div>
+            </div>
+
+            <!-- Card 4 -->
+            <div class="relative group w-full max-w-[320px] mx-auto h-[360px] md:h-[400px]">
+                <img class="w-full h-56 md:h-72 object-cover rounded-3xl shadow-md" src="gambar/konten.png" alt="Fasilitas Kesehatan" />
+                <div class="card-content-box absolute bottom-6 md:bottom-10 left-1/2 transform -translate-x-1/2 w-[85%] md:w-64 h-32 md:h-40 bg-BIRUDPM rounded-3xl p-3 md:p-4 flex flex-col items-center justify-center text-center shadow-lg group-hover:-translate-y-2 transition duration-300">
+                    <div class="relative w-10 h-10 md:w-12 md:h-12 mb-2">
+                        <img src="gambar/FASILITASKESEHATANVECTOR-putih.svg" alt="Fasilitas Kesehatan" class="logo-unhover w-full h-full" />
+                        <img src="gambar/FASILITASKESEHATANVECTOR-biru.svg" alt="Fasilitas Kesehatan" class="logo-hover w-full h-full" />
+                    </div>
+                    <h4 class="card-title text-KUNINGDPM font-bold text-sm md:text-base mb-1">Fasilitas Kesehatan</h4>
+                    <p class="card-desc text-white text-xs font-medium">Standar pelayanan kesehatan bertaraf internasional.</p>
+                </div>
+            </div>
+
+            <!-- Card 5 -->
+            <div class="relative group w-full max-w-[320px] mx-auto h-[360px] md:h-[400px]">
+                <img class="w-full h-56 md:h-72 object-cover rounded-3xl shadow-md" src="gambar/konten.png" alt="Fasilitas Umum" />
+                <div class="card-content-box absolute bottom-6 md:bottom-10 left-1/2 transform -translate-x-1/2 w-[85%] md:w-64 h-32 md:h-40 bg-BIRUDPM rounded-3xl p-3 md:p-4 flex flex-col items-center justify-center text-center shadow-lg group-hover:-translate-y-2 transition duration-300">
+                    <div class="relative w-10 h-10 md:w-12 md:h-12 mb-2">
+                        <img src="gambar/FASILITASUMUMVECTOR-putih.svg" alt="Fasilitas Umum" class="logo-unhover w-full h-full" />
+                        <img src="gambar/FASILITASUMUMVECTOR-biru.svg" alt="Fasilitas Umum" class="logo-hover w-full h-full" />
+                    </div>
+                    <h4 class="card-title text-KUNINGDPM font-bold text-sm md:text-base mb-1">Fasilitas Umum</h4>
+                    <p class="card-desc text-white text-xs font-medium">Terjaga sangat baik dan terkenal sebagai kota 1000 taman.</p>
+                </div>
+            </div>
+
+            <!-- Card 6 -->
+            <div class="relative group w-full max-w-[320px] mx-auto h-[360px] md:h-[400px]">
+                <img class="w-full h-56 md:h-72 object-cover rounded-3xl shadow-md" src="gambar/konten.png" alt="Fasilitas Pendidikan" />
+                <div class="card-content-box absolute bottom-6 md:bottom-10 left-1/2 transform -translate-x-1/2 w-[85%] md:w-64 h-32 md:h-40 bg-BIRUDPM rounded-3xl p-3 md:p-4 flex flex-col items-center justify-center text-center shadow-lg group-hover:-translate-y-2 transition duration-300">
+                    <div class="relative w-10 h-10 md:w-12 md:h-12 mb-2">
+                        <img src="gambar/FASILITASPENDIDIKANVECTOR-putih.svg" alt="Fasilitas Pendidikan" class="logo-unhover w-full h-full" />
+                        <img src="gambar/FASILITASPENDIDIKANVECTOR-biru.svg" alt="Fasilitas Pendidikan" class="logo-hover w-full h-full" />
+                    </div>
+                    <h4 class="card-title text-KUNINGDPM font-bold text-sm md:text-base mb-1">Fasilitas Pendidikan</h4>
+                    <p class="card-desc text-white text-xs font-medium">Universitas negeri dan swasta bertaraf internasional.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- LAYANAN DPM -->
+    <section class="mb-20 px-4 md:px-10">
+        <h2 class="text-5xl font-bold font-['Poppins'] text-center mb-10 ">Sistem Layanan DPMPTSP</h2>
+        <div class="relative max-w-6xl mx-auto">
+            <!-- Carousel Container -->
+            <div class="carousel-container overflow-hidden">
+                <div class="carousel-track-sistem flex transition-transform duration-500 ease-in-out">
+                    <!-- Slide 1 -->
+                    <div class="carousel-slide-sistem w-full flex-shrink-0 px-2">
+                        <div class="relative bg-white rounded-[30px] md:rounded-[50px] shadow-xl p-6 md:p-10 flex flex-col md:flex-row items-center gap-8 md:gap-10 border border-gray-100">
+                            <div class="flex-1">
+                                <img class="w-full rounded-3xl shadow-md" src="gambar/ppetap.png" alt="Peta Potensi" />
+                            </div>
+
+                            <div class="flex-1">
+                                <h3 class="text-BIRUDPM text-3xl md:text-4xl font-bold mb-4">Peta Potensi Investasi</h3>
+                                <p class=" text-lg md:text-2xl leading-7 md:leading-9 mb-6 md:mb-8">
+                                    Menyajikan informasi sektor unggulan potensi investasi di setiap kawasan tertentu untuk memudahkan investor dalam pengambilan keputusan.
+                                </p>
+                                <button class="!bg-yellow-400 !text-blue-800 hover:!bg-yellow-300 text-lg md:text-xl font-bold px-8 md:px-10 py-3 rounded-2xl hover:shadow-lg transition transform hover:-translate-y-1 hover:scale-105 duration-300">
+                                    Kunjungi Sekarang
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Slide 2 -->
+                    <div class="carousel-slide-sistem w-full flex-shrink-0 px-2">
+                        <div class="relative bg-white rounded-[30px] md:rounded-[50px] shadow-xl p-6 md:p-10 flex flex-col md:flex-row items-center gap-8 md:gap-10 border border-gray-100">
+                            <div class="flex-1">
+                                <img class="w-full rounded-3xl shadow-md" src="gambar/ppetap.png" alt="Peta Potensi" />
+                            </div>
+
+                            <div class="flex-1">
+                                <h3 class="text-BIRUDPM text-3xl md:text-4xl font-bold mb-4">Peta Potensi Investasi</h3>
+                                <p class="text-lg md:text-2xl leading-7 md:leading-9 mb-6 md:mb-8">
+                                    Menyajikan informasi sektor unggulan potensi investasi di setiap kawasan tertentu untuk memudahkan investor dalam pengambilan keputusan.
+                                </p>
+                                <button class="!bg-yellow-400 !text-blue-800 hover:!bg-yellow-300 text-lg md:text-xl font-bold px-8 md:px-10 py-3 rounded-2xl hover:shadow-lg transition transform hover:-translate-y-1 hover:scale-105 duration-300">
+                                    Kunjungi Sekarang
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Slide 3 -->
+                    <div class="carousel-slide-sistem w-full flex-shrink-0 px-2">
+                        <div class="relative bg-white rounded-[30px] md:rounded-[50px] shadow-xl p-6 md:p-10 flex flex-col md:flex-row items-center gap-8 md:gap-10 border border-gray-100">
+                            <div class="flex-1">
+                                <img class="w-full rounded-3xl shadow-md" src="gambar/ppetap.png" alt="Peta Potensi" />
+                            </div>
+
+                            <div class="flex-1">
+                                <h3 class="text-BIRUDPM text-3xl md:text-4xl font-bold mb-4">Peta Potensi Investasi</h3>
+                                <p class="text-lg md:text-2xl leading-7 md:leading-9 mb-6 md:mb-8">
+                                    Menyajikan informasi sektor unggulan potensi investasi di setiap kawasan tertentu untuk memudahkan investor dalam pengambilan keputusan.
+                                </p>
+                                <button class="!bg-yellow-400 !text-blue-800 hover:!bg-yellow-300 text-lg md:text-xl font-bold px-8 md:px-10 py-3 rounded-2xl hover:shadow-lg transition transform hover:-translate-y-1 hover:scale-105 duration-300">
+                                    Kunjungi Sekarang
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Navigation Buttons -->
+            <button class="carousel-prev-sistem absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 md:-translate-x-6 bg-white w-10 h-10 md:w-12 md:h-12 rounded-full shadow-lg flex items-center justify-center hover:scale-110 transition duration-300 z-10 border border-gray-200">
+                <img class="w-5 h-5 md:w-6 md:h-6 object-contain rotate-180" src="gambar/right-arrow.svg" alt="Previous" />
+            </button>
+            
+            <button class="carousel-next-sistem absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 md:translate-x-6 bg-white w-10 h-10 md:w-12 md:h-12 rounded-full shadow-lg flex items-center justify-center hover:scale-110 transition duration-300 z-10 border border-gray-200">
+                <img class="w-5 h-5 md:w-6 md:h-6 object-contain" src="gambar/right-arrow.svg" alt="Next" />
+            </button>
+
+            <!-- Dots Indicator -->
+            <div class="flex justify-center mt-6 md:mt-8 space-x-3">
+                <button class="carousel-dot-sistem w-3 h-3 rounded-full bg-gray-300 hover:bg-BIRUDPM transition duration-300" data-index="0"></button>
+                <button class="carousel-dot-sistem w-3 h-3 rounded-full bg-gray-300 hover:bg-BIRUDPM transition duration-300" data-index="1"></button>
+                <button class="carousel-dot-sistem w-3 h-3 rounded-full bg-gray-300 hover:bg-BIRUDPM transition duration-300" data-index="2"></button>
+                <button class="carousel-dot-sistem w-3 h-3 rounded-full bg-gray-300 hover:bg-BIRUDPM transition duration-300" data-index="3"></button>
+            </div>
+        </div>
+    </section>
+    
+
+    <style>
+    .carousel-track-sistem {
+        will-change: transform;
+    }
+    .carousel-slide-sistem {
+        transition: all 0.3s ease;
+    }
+    .carousel-dot-sistem.active {
+        background-color: #1e40af !important; /* Warna BIRUDPM disesuaikan */
+        width: 12px;
+        height: 12px;
+    }
+    </style>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const track = document.querySelector('.carousel-track-sistem');
+        const slides = document.querySelectorAll('.carousel-slide-sistem');
+        const prevBtn = document.querySelector('.carousel-prev-sistem');
+        const nextBtn = document.querySelector('.carousel-next-sistem');
+        const dots = document.querySelectorAll('.carousel-dot-sistem');
+        
+        let currentIndex = 0;
+        const totalSlides = slides.length;
+        
+        function updateCarousel() {
+            const slideWidth = slides[0].offsetWidth;
+            track.style.transform = `translateX(-${currentIndex * slideWidth}px)`;
+            
+            // Update active dot
+            dots.forEach((dot, index) => {
+                if (index === currentIndex) {
+                    dot.classList.add('active');
+                    dot.classList.remove('bg-gray-300');
+                    dot.classList.add('bg-BIRUDPM');
+                    dot.classList.add('w-4', 'h-4', 'md:w-4', 'md:h-4');
+                } else {
+                    dot.classList.remove('active');
+                    dot.classList.remove('bg-BIRUDPM');
+                    dot.classList.add('bg-gray-300');
+                    dot.classList.remove('w-4', 'h-4', 'md:w-4', 'md:h-4');
+                    dot.classList.add('w-3', 'h-3', 'md:w-3', 'md:h-3');
+                }
+            });
+        }
+        
+        function nextSlide() {
+            currentIndex = (currentIndex + 1) % totalSlides;
+            updateCarousel();
+        }
+        
+        function prevSlide() {
+            currentIndex = (currentIndex - 1 + totalSlides) % totalSlides;
+            updateCarousel();
+        }
+        
+        // Event Listeners
+        nextBtn.addEventListener('click', nextSlide);
+        prevBtn.addEventListener('click', prevSlide);
+        
+        dots.forEach(dot => {
+            dot.addEventListener('click', function() {
+                currentIndex = parseInt(this.getAttribute('data-index'));
+                updateCarousel();
+            });
+        });
+        
+        // Auto slide (optional - bisa diaktifkan jika mau)
+        // let autoSlide = setInterval(nextSlide, 5000);
+        
+        // Pause auto slide on hover
+        // const carouselContainer = document.querySelector('.carousel-container');
+        // carouselContainer.addEventListener('mouseenter', () => clearInterval(autoSlide));
+        // carouselContainer.addEventListener('mouseleave', () => {
+        //     autoSlide = setInterval(nextSlide, 5000);
+        // });
+        
+        // Update on window resize
+        window.addEventListener('resize', updateCarousel);
+        
+        // Initialize
+        updateCarousel();
+        
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowLeft') prevSlide();
+            if (e.key === 'ArrowRight') nextSlide();
+        });
+    });
+    </script>
+
+    <!-- BAR BERITA DLL -->
+    <section class="flex flex-col items-center mb-12 md:mb-16 px-4">
+        <div class="tab-bar-container mb-8 md:mb-12">
+            <div class="tab-bar-inner h-20 md:h-24 relative">
+                <!-- berita -->
+                <div id="menu-berita" class="nav-item active absolute w-[200px] md:w-[383.6px] h-20 md:h-22 left-0 top-0 cursor-pointer">
+                    <div class="bg-gradient-blue w-full h-full rounded-bl-[30px] md:rounded-bl-[63px]"></div>
+                    <div class="absolute left-[40px] md:left-[85px] top-[10px] md:top-[18px] w-[36px] h-[36px] md:w-[54px] md:h-[54px] icon-white rounded-full"></div>
+                    <div class="absolute left-[46px] md:left-[97.86px] top-[16px] md:top-[30.71px] w-[20px] h-[20px] md:w-[27.43px] md:h-[27.43px] overflow-hidden">
+                        <img src="logoberitaunhover.svg" class="logo-unhover w-full h-full" />
+                        <img src="logoberitahover.svg" class="logo-hover w-full h-full" />
+                    </div>
+                    <div class="absolute left-[80px] md:left-[144px] top-[20px] md:top-[37px] w-[60px] md:w-[101px] h-4 md:h-6 text-white text-base md:text-[23px] font-bold text-center leading-4 md:leading-6">
+                        BERITA
+                    </div>
+                </div>
+
+                <!-- artikel -->
+                <div id="menu-artikel" class="nav-item absolute w-[210px] md:w-[403.64px] h-20 md:h-22 left-[180px] md:left-[320px] top-0 cursor-pointer overflow-hidden">
+                    <div class="bg-gradient-blue w-full md:w-[410.57px] h-full rounded-bl-[30px] md:rounded-bl-[63px]"></div>
+                    <div class="absolute left-[50px] md:left-[102px] top-[10px] md:top-[18px] w-[36px] h-[36px] md:w-[54px] md:h-[54px] icon-white rounded-full"></div>
+                    <div class="absolute left-[56px] md:left-[114.14px] top-[14px] md:top-[28.29px] w-[24px] h-[24px] md:w-[34.29px] md:h-[34.29px]">
+                        <img src="logoartikelunhover.svg" class="logo-unhover w-full h-full" />
+                        <img src="logoartikelhover.svg" class="logo-hover w-full h-full" />
+                    </div>
+                    <div class="absolute left-[100px] md:left-[170px] top-[18px] md:top-[34px] w-[60px] md:w-[101px] h-4 md:h-6 text-white text-base md:text-[23px] font-bold text-center leading-4 md:leading-6">
+                        ARTIKEL
+                    </div>
+                </div>
+
+                <!-- video -->
+                <div id="menu-video" class="nav-item absolute w-[190px] md:w-[359px] h-20 md:h-22 left-[370px] md:left-[657px] top-0 cursor-pointer">
+                    <div class="bg-gradient-blue w-full h-full rounded-tr-[30px] md:rounded-tr-[63px] rounded-bl-[30px] md:rounded-bl-[63px]"></div>
+                    <div class="absolute left-[50px] md:left-[102px] top-[10px] md:top-[18px] w-[34px] h-[34px] md:w-[51px] md:h-[51px] icon-white rounded-full"></div>
+                    <div class="absolute left-[56px] md:left-[114.14px] top-[18px] md:top-[36.81px] w-[20px] h-[12px] md:w-[27.52px] md:h-[16.25px]">
+                        <img src="logovideounhover.svg" class="logo-unhover w-full h-full" />
+                        <img src="logovideohover.svg" class="logo-hover w-full h-full" />
+                    </div>
+                    <div class="absolute left-[90px] md:left-[160px] top-[18px] md:top-[34px] w-[60px] md:w-[101px] h-4 md:h-6 text-white text-base md:text-[23px] font-bold text-center leading-4 md:leading-6">
+                        VIDEO
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Konten Berita -->
+        <div id="content-berita" class="flex flex-wrap justify-center gap-4 md:gap-6 lg:gap-8 max-w-6xl">
+            <!-- Card 1 -->
+            <div class="content-card w-full max-w-[320px]">
+                <div class="bg-white rounded-[20px] md:rounded-[30px] shadow-lg overflow-hidden h-full">
+                    <div class="overflow-hidden rounded-t-[20px] md:rounded-t-3xl">
+                        <img class="w-full h-44 md:h-48 object-cover content-image"
+                            src="https://dpm-ptsp.surabaya.go.id/fileberita/kitakyushu-pembahasan-investasi-2025-2025-11-21(BERITA).jpeg" />
+                    </div>
+                    <div class="p-4 md:p-5">
+                        <h3 class="content-title text-sm md:text-base font-bold text-gray-800 mb-3 line-clamp-2">Pemkot Surabaya Terima Kunjungan Pemerintah Kota Kitakyushu...</h3>
+                        <div class="flex justify-between text-xs md:text-sm text-gray-600">
+                            <span><i class="fas fa-calendar mr-1"></i> 21-11-2025</span>
+                            <span class="font-bold"><i class="fas fa-user mr-1"></i> ADMIN DPM</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 2 -->
+            <div class="content-card w-full max-w-[320px]">
+                <div class="bg-white rounded-[20px] md:rounded-[30px] shadow-lg overflow-hidden h-full">
+                    <div class="overflow-hidden rounded-t-[20px] md:rounded-t-3xl">
+                        <img class="w-full h-44 md:h-48 object-cover content-image"
+                            src="https://dpm-ptsp.surabaya.go.id/fileberita/dpmptsp-bandung-kunjungan-november-2025-2025-11-20(BERITA).jpeg" />
+                    </div>
+                    <div class="p-4 md:p-5">
+                        <h3 class="content-title text-sm md:text-base font-bold text-gray-800 mb-3 line-clamp-2">Kunjungan DPMPTSP Bandung ke DPMPTSP Surabaya....</h3>
+                        <div class="flex justify-between text-xs md:text-sm text-gray-600">
+                            <span><i class="fas fa-calendar mr-1"></i> 19-11-2025</span>
+                            <span class="font-bold"><i class="fas fa-user mr-1"></i> ADMIN DPM</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 3 -->
+            <div class="content-card w-full max-w-[320px]">
+                <div class="bg-white rounded-[20px] md:rounded-[30px] shadow-lg overflow-hidden h-full">
+                    <div class="overflow-hidden rounded-t-[20px] md:rounded-t-3xl">
+                        <img class="w-full h-44 md:h-48 object-cover content-image"
+                            src="https://dpm-ptsp.surabaya.go.id/fileberita/depok-audit-2025-2025-11-17(BERITA).jpeg" />
+                    </div>
+                    <div class="p-4 md:p-5">
+                        <h3 class="content-title text-sm md:text-base font-bold text-gray-800 mb-3 line-clamp-2">Inspektorat Daerah Kota Depok Kunjungan Pemkot Surabaya....</h3>
+                        <div class="flex justify-between text-xs md:text-sm text-gray-600">
+                            <span><i class="fas fa-calendar mr-1"></i> 17-11-2025</span>
+                            <span class="font-bold"><i class="fas fa-user mr-1"></i> ADMIN DPM</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 4 -->
+            <div class="content-card w-full max-w-[320px]">
+                <div class="bg-white rounded-[20px] md:rounded-[30px] shadow-lg overflow-hidden h-full">
+                    <div class="overflow-hidden rounded-t-[20px] md:rounded-t-3xl">
+                        <img class="w-full h-44 md:h-48 object-cover content-image"
+                            src="https://dpm-ptsp.surabaya.go.id/fileberita/leng-tien-kung-2025-2025-11-17(BERITA).jpeg" />
+                    </div>
+                    <div class="p-4 md:p-5">
+                        <h3 class="content-title text-sm md:text-base font-bold text-gray-800 mb-3 line-clamp-2">Sentra Pelayanan Publik (SPP) Pakal Terima Kunjungan TK Taruna...</h3>
+                        <div class="flex justify-between text-xs md:text-sm text-gray-600">
+                            <span><i class="fas fa-calendar mr-1"></i> 17-11-2025</span>
+                            <span class="font-bold"><i class="fas fa-user mr-1"></i> ADMIN DPM</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 5 -->
+            <div class="content-card w-full max-w-[320px]">
+                <div class="bg-white rounded-[20px] md:rounded-[30px] shadow-lg overflow-hidden h-full">
+                    <div class="overflow-hidden rounded-t-[20px] md:rounded-t-3xl">
+                        <img class="w-full h-44 md:h-48 object-cover content-image"
+                            src="https://dpm-ptsp.surabaya.go.id/fileberita/afrika-selatan-2025-2025-11-17(BERITA).jpeg" />
+                    </div>
+                    <div class="p-4 md:p-5">
+                        <h3 class="content-title text-sm md:text-base font-bold text-gray-800 mb-3 line-clamp-2">Pemerintah Kota Surabaya Terima Kunjungan Delegasi Kota Mangaung...</h3>
+                        <div class="flex justify-between text-xs md:text-sm text-gray-600">
+                            <span><i class="fas fa-calendar mr-1"></i> 17-11-2025</span>
+                            <span class="font-bold"><i class="fas fa-user mr-1"></i> ADMIN DPM</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 6 -->
+            <div class="content-card w-full max-w-[320px]">
+                <div class="bg-white rounded-[20px] md:rounded-[30px] shadow-lg overflow-hidden h-full">
+                    <div class="overflow-hidden rounded-t-[20px] md:rounded-t-3xl">
+                        <img class="w-full h-44 md:h-48 object-cover content-image"
+                            src="https://dpm-ptsp.surabaya.go.id/fileberita/studitor-grobongan-nov-2025-2025-11-14(BERITA).jpeg" />
+                    </div>
+                    <div class="p-4 md:p-5">
+                        <h3 class="content-title text-sm md:text-base font-bold text-gray-800 mb-3 line-clamp-2">Kunjungan dan Studi Tiru Pemkab Grobogan ke Pemkot Surabaya...</h3>
+                        <div class="flex justify-between text-xs md:text-sm text-gray-600">
+                            <span><i class="fas fa-calendar mr-1"></i> 17-11-2025</span>
+                            <span class="font-bold"><i class="fas fa-user mr-1"></i> ADMIN DPM</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Konten Artikel (Hidden) -->
+        <div id="content-artikel" class="hidden flex flex-wrap justify-center gap-4 md:gap-6 lg:gap-8 max-w-6xl">
+            <!-- Artikel 1 -->
+            <div class="content-card w-full max-w-[320px]">
+                <div class="bg-white rounded-[20px] md:rounded-[30px] shadow-lg overflow-hidden h-full">
+                    <div class="overflow-hidden rounded-t-[20px] md:rounded-t-3xl">
+                        <img class="w-full h-44 md:h-48 object-cover content-image"
+                            src="https://images.unsplash.com/photo-1504711434969-e33886168f5c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" />
+                    </div>
+                    <div class="p-4 md:p-5">
+                        <h3 class="content-title text-sm md:text-base font-bold text-gray-800 mb-3 line-clamp-2">Update berita terbaru seputar politik dan ekonomi</h3>
+                        <div class="flex justify-between text-xs md:text-sm text-gray-600">
+                            <span><i class="fas fa-calendar mr-1"></i> 12-11-2025</span>
+                            <span class="font-bold"><i class="fas fa-user mr-1"></i> ADMIN DPM</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Artikel 2 -->
+            <div class="content-card w-full max-w-[320px]">
+                <div class="bg-white rounded-[20px] md:rounded-[30px] shadow-lg overflow-hidden h-full">
+                    <div class="overflow-hidden rounded-t-[20px] md:rounded-t-3xl">
+                        <img class="w-full h-44 md:h-48 object-cover content-image"
+                            src="https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1172&q=80" />
+                    </div>
+                    <div class="p-4 md:p-5">
+                        <h3 class="content-title text-sm md:text-base font-bold text-gray-800 mb-3 line-clamp-2">Panduan lengkap untuk menulis artikel yang menarik</h3>
+                        <div class="flex justify-between text-xs md:text-sm text-gray-600">
+                            <span><i class="fas fa-calendar mr-1"></i> 12-11-2025</span>
+                            <span class="font-bold"><i class="fas fa-user mr-1"></i> ADMIN DPM</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Artikel 3 -->
+            <div class="content-card w-full max-w-[320px]">
+                <div class="bg-white rounded-[20px] md:rounded-[30px] shadow-lg overflow-hidden h-full">
+                    <div class="overflow-hidden rounded-t-[20px] md:rounded-t-3xl">
+                        <img class="w-full h-44 md:h-48 object-cover content-image"
+                            src="https://images.unsplash.com/photo-1611162617474-5b21e879e113?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1074&q=80" />
+                    </div>
+                    <div class="p-4 md:p-5">
+                        <h3 class="content-title text-sm md:text-base font-bold text-gray-800 mb-3 line-clamp-2">Belajar membuat konten video yang menarik dan informatif</h3>
+                        <div class="flex justify-between text-xs md:text-sm text-gray-600">
+                            <span><i class="fas fa-calendar mr-1"></i> 12-11-2025</span>
+                            <span class="font-bold"><i class="fas fa-user mr-1"></i> ADMIN DPM</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Artikel 4 -->
+            <div class="content-card w-full max-w-[320px]">
+                <div class="bg-white rounded-[20px] md:rounded-[30px] shadow-lg overflow-hidden h-full">
+                    <div class="overflow-hidden rounded-t-[20px] md:rounded-t-3xl">
+                        <img class="w-full h-44 md:h-48 object-cover content-image"
+                            src="https://images.unsplash.com/photo-1611162617474-5b21e879e113?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1074&q=80" />
+                    </div>
+                    <div class="p-4 md:p-5">
+                        <h3 class="content-title text-sm md:text-base font-bold text-gray-800 mb-3 line-clamp-2">Tips meningkatkan kualitas artikel untuk pemula</h3>
+                        <div class="flex justify-between text-xs md:text-sm text-gray-600">
+                            <span><i class="fas fa-calendar mr-1"></i> 12-11-2025</span>
+                            <span class="font-bold"><i class="fas fa-user mr-1"></i> ADMIN DPM</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Artikel 5 -->
+            <div class="content-card w-full max-w-[320px]">
+                <div class="bg-white rounded-[20px] md:rounded-[30px] shadow-lg overflow-hidden h-full">
+                    <div class="overflow-hidden rounded-t-[20px] md:rounded-t-3xl">
+                        <img class="w-full h-44 md:h-48 object-cover content-image"
+                            src="https://images.unsplash.com/photo-1611162617474-5b21e879e113?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1074&q=80" />
+                    </div>
+                    <div class="p-4 md:p-5">
+                        <h3 class="content-title text-sm md:text-base font-bold text-gray-800 mb-3 line-clamp-2">Teknik menulis artikel yang SEO friendly</h3>
+                        <div class="flex justify-between text-xs md:text-sm text-gray-600">
+                            <span><i class="fas fa-calendar mr-1"></i> 12-11-2025</span>
+                            <span class="font-bold"><i class="fas fa-user mr-1"></i> ADMIN DPM</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Artikel 6 -->
+            <div class="content-card w-full max-w-[320px]">
+                <div class="bg-white rounded-[20px] md:rounded-[30px] shadow-lg overflow-hidden h-full">
+                    <div class="flex flex-col items-center justify-center h-full p-6">
+                        <h3 class="content-title text-lg md:text-xl font-bold text-gray-800 text-center mb-4">ARTIKEL Tutorial Terbaru</h3>
+                        <p class="text-gray-600 text-sm md:text-base text-center">Temukan panduan lengkap untuk menulis artikel berkualitas</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Konten Video (Hidden) -->
+        <div id="content-video" class="hidden flex flex-wrap justify-center gap-4 md:gap-6 lg:gap-8 max-w-6xl">
+            <!-- Video 1 -->
+            <div class="content-card w-full max-w-[320px]">
+                <div class="bg-white rounded-[20px] md:rounded-[30px] shadow-lg overflow-hidden h-full">
+                    <div class="overflow-hidden rounded-t-[20px] md:rounded-t-3xl">
+                        <img class="w-full h-44 md:h-48 object-cover content-image"
+                            src="https://images.unsplash.com/photo-1504711434969-e33886168f5c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" />
+                    </div>
+                    <div class="p-4 md:p-5">
+                        <h3 class="content-title text-sm md:text-base font-bold text-gray-800 mb-3 line-clamp-2">Update berita terbaru seputar politik dan ekonomi</h3>
+                        <div class="flex justify-between text-xs md:text-sm text-gray-600">
+                            <span><i class="fas fa-calendar mr-1"></i> 12-11-2025</span>
+                            <span class="font-bold"><i class="fas fa-user mr-1"></i> ADMIN DPM</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Video 2 -->
+            <div class="content-card w-full max-w-[320px]">
+                <div class="bg-white rounded-[20px] md:rounded-[30px] shadow-lg overflow-hidden h-full">
+                    <div class="overflow-hidden rounded-t-[20px] md:rounded-t-3xl">
+                        <img class="w-full h-44 md:h-48 object-cover content-image"
+                            src="https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1172&q=80" />
+                    </div>
+                    <div class="p-4 md:p-5">
+                        <h3 class="content-title text-sm md:text-base font-bold text-gray-800 mb-3 line-clamp-2">Panduan lengkap untuk membuat video menarik</h3>
+                        <div class="flex justify-between text-xs md:text-sm text-gray-600">
+                            <span><i class="fas fa-calendar mr-1"></i> 12-11-2025</span>
+                            <span class="font-bold"><i class="fas fa-user mr-1"></i> ADMIN DPM</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Video 3 -->
+            <div class="content-card w-full max-w-[320px]">
+                <div class="bg-white rounded-[20px] md:rounded-[30px] shadow-lg overflow-hidden h-full">
+                    <div class="overflow-hidden rounded-t-[20px] md:rounded-t-3xl">
+                        <img class="w-full h-44 md:h-48 object-cover content-image"
+                            src="https://images.unsplash.com/photo-1611162617474-5b21e879e113?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1074&q=80" />
+                    </div>
+                    <div class="p-4 md:p-5">
+                        <h3 class="content-title text-sm md:text-base font-bold text-gray-800 mb-3 line-clamp-2">Belajar membuat konten video yang menarik dan informatif</h3>
+                        <div class="flex justify-between text-xs md:text-sm text-gray-600">
+                            <span><i class="fas fa-calendar mr-1"></i> 12-11-2025</span>
+                            <span class="font-bold"><i class="fas fa-user mr-1"></i> ADMIN DPM</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Video 4 -->
+            <div class="content-card w-full max-w-[320px]">
+                <div class="bg-white rounded-[20px] md:rounded-[30px] shadow-lg overflow-hidden h-full">
+                    <div class="overflow-hidden rounded-t-[20px] md:rounded-t-3xl">
+                        <img class="w-full h-44 md:h-48 object-cover content-image"
+                            src="https://images.unsplash.com/photo-1611162617474-5b21e879e113?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1074&q=80" />
+                    </div>
+                    <div class="p-4 md:p-5">
+                        <h3 class="content-title text-sm md:text-base font-bold text-gray-800 mb-3 line-clamp-2">Teknik editing video untuk pemula</h3>
+                        <div class="flex justify-between text-xs md:text-sm text-gray-600">
+                            <span><i class="fas fa-calendar mr-1"></i> 12-11-2025</span>
+                            <span class="font-bold"><i class="fas fa-user mr-1"></i> ADMIN DPM</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Video 5 -->
+            <div class="content-card w-full max-w-[320px]">
+                <div class="bg-white rounded-[20px] md:rounded-[30px] shadow-lg overflow-hidden h-full">
+                    <div class="overflow-hidden rounded-t-[20px] md:rounded-t-3xl">
+                        <img class="w-full h-44 md:h-48 object-cover content-image"
+                            src="https://images.unsplash.com/photo-1611162617474-5b21e879e113?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1074&q=80" />
+                    </div>
+                    <div class="p-4 md:p-5">
+                        <h3 class="content-title text-sm md:text-base font-bold text-gray-800 mb-3 line-clamp-2">Cara membuat thumbnail yang menarik untuk video</h3>
+                        <div class="flex justify-between text-xs md:text-sm text-gray-600">
+                            <span><i class="fas fa-calendar mr-1"></i> 12-11-2025</span>
+                            <span class="font-bold"><i class="fas fa-user mr-1"></i> ADMIN DPM</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Video 6 -->
+            <div class="content-card w-full max-w-[320px]">
+                <div class="bg-white rounded-[20px] md:rounded-[30px] shadow-lg overflow-hidden h-full">
+                    <div class="flex flex-col items-center justify-center h-full p-6">
+                        <h3 class="content-title text-lg md:text-xl font-bold text-gray-800 text-center mb-4">Video Tutorial Terbaru</h3>
+                        <p class="text-gray-600 text-sm md:text-base text-center">Tonton video tutorial terbaru untuk belajar lebih mudah</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Load More Button -->
+        <div class="pt-8 md:pt-16">
+            <div class="bg-yellow-400 rounded-full px-4 py-3 md:px-6 md:py-5 inline-block cursor-pointer hover:bg-yellow-300 transition">
+                <span class="text-blue-700 font-bold text-sm md:text-base flex items-center gap-2">
+                    BACA SELENGKAPNYA 
+                    <span class="text-base md:text-lg">›</span>
+                </span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Trusted By Section -->
+    <section class="py-20 bg-white overflow-hidden">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-12">
+                <h2 class="text-4xl font-bold mb-4 text-white">
+                    <span class="text-blue-700">Dipercaya oleh</span>
+                </h2>
+                <p class="text-black text-lg">Institusi pemerintah dan badan hukum di Indonesia</p>
+            </div>
+            
+            <div class="relative">
+                <div class="flex gap-8 logo-scroll">
+                    <div class="flex-shrink-0 bg-white p-6 rounded-2xl shadow-lg hover:shadow-xl transition duration-300 w-64">
+                        <img src="gambar/sby.png" class="h-20 mx-auto mb-4" alt="Pemkot Surabaya">
+                        <div class="text-center gradient-blue text-white py-2 rounded-lg font-semibold">PEMKOT SURABAYA</div>
+                    </div>
+                    <div class="flex-shrink-0 bg-white p-6 rounded-2xl shadow-lg hover:shadow-xl transition duration-300 w-64">
+                        <img src="gambar/ossv.svg" class="h-20 mx-auto mb-4" alt="OSS">
+                        <div class="text-center gradient-yellow text-blue-900 py-2 rounded-lg font-semibold">OSS</div>
+                    </div>
+                    <div class="flex-shrink-0 bg-white p-6 rounded-2xl shadow-lg hover:shadow-xl transition duration-300 w-64">
+                        <img src="gambar/dpmptspjatimv.svg" class="h-20 mx-auto mb-4" alt="DPMPTSP Jatim">
+                        <div class="text-center gradient-blue text-white py-2 rounded-lg font-semibold">DPMPTSP JAWA TIMUR</div>
+                    </div>
+                    <div class="flex-shrink-0 bg-white p-6 rounded-2xl shadow-lg hover:shadow-xl transition duration-300 w-64">
+                        <img src="gambar/bkpmv.png" class="h-20 mx-auto mb-4" alt="BKPM">
+                        <div class="text-center gradient-yellow text-blue-900 py-2 rounded-lg font-semibold text-sm">KEMENTRIAN INVESTASI</div>
+                    </div>
+                    <div class="flex-shrink-0 bg-white p-6 rounded-2xl shadow-lg hover:shadow-xl transition duration-300 w-64">
+                        <img src="gambar/panrbv.png" class="h-20 mx-auto mb-4" alt="PAN RB">
+                        <div class="text-center gradient-blue text-white py-2 rounded-lg font-semibold text-sm">KEMENTERIAN PAN & RB</div>
+                    </div>
+                    <div class="flex-shrink-0 bg-white p-6 rounded-2xl shadow-lg hover:shadow-xl transition duration-300 w-64">
+                        <img src="gambar/kemhum.svg" class="h-20 mx-auto mb-4" alt="Kemhum">
+                        <div class="text-center gradient-yellow text-blue-900 py-2 rounded-lg font-semibold text-sm">KEMENTERIAN HUKUM RI</div>
+                    </div>
+                    
+                    <!-- Duplicate for seamless loop -->
+                    <div class="flex-shrink-0 bg-white p-6 rounded-2xl shadow-lg hover:shadow-xl transition duration-300 w-64">
+                        <img src="gambar/sby.png" class="h-20 mx-auto mb-4" alt="Pemkot Surabaya">
+                        <div class="text-center gradient-blue text-white py-2 rounded-lg font-semibold">PEMKOT SURABAYA</div>
+                    </div>
+                    <div class="flex-shrink-0 bg-white p-6 rounded-2xl shadow-lg hover:shadow-xl transition duration-300 w-64">
+                        <img src="gambar/ossv.svg" class="h-20 mx-auto mb-4" alt="OSS">
+                        <div class="text-center gradient-yellow text-blue-900 py-2 rounded-lg font-semibold">OSS</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PENGADUAN SECTION -->
+    <section class="py-12 md:py-20 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="gradient-blue rounded-2xl md:rounded-3xl shadow-2xl overflow-hidden">
+                <div class="grid md:grid-cols-2 gap-6 md:gap-8 items-center p-6 md:p-12">
+                    <div class="text-white">
+                        <h2 class="text-2xl md:text-4xl font-bold mb-4 md:mb-6">
+                            Suarakan Pengaduanmu Untuk Membuat Layanan Kami Menjadi Lebih Baik!
+                        </h2>
+                        <p class="text-blue-100 text-sm md:text-lg mb-6 md:mb-8 leading-relaxed">
+                            DPM-PTSP Kota Surabaya Siap Untuk menerima segala aduan layanan secara cepat dan mudah. Laporkan sekarang demi layanan yang lebih responsif dan transparan.
+                        </p>
+                        <a href="https://wa.me/6285234982434?text=Pertanyaan dari sumber website" target="_blank">
+                            <button class="btn-secondary text-blue-900 font-bold px-6 py-3 md:px-8 md:py-4 rounded-full shadow-lg text-sm md:text-base">
+                                💬 Adukan Sekarang
+                            </button>
+                        </a>
+                    </div>
+                    <div class="flex justify-center mt-6 md:mt-0">
+                        <img src="gambar/TAKON-SOBATapik.png" class="w-48 h-48 md:w-80 md:h-80 object-cover rounded-full border-4 md:border-8 border-yellow-400 shadow-2xl animate-float" alt="Customer Service">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="bg-gray-900 text-gray-300 py-12 md:py-16">
+        <div class="container mx-auto px-4">
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-12 mb-8 md:mb-12">
+                <div>
+                    <img src="gambar/logoputih.png" class="mb-8 md:mb-16 w-32 md:w-auto" alt="Logo Footer" id="footer-logo">
+                    <div class="space-y-3 md:space-y-4">
+                        <div class="flex items-start gap-3">
+                            <span class="text-yellow-400 text-lg md:text-xl">📍</span>
+                            <p class="text-xs md:text-sm leading-relaxed">Jl. Jimerto No. 25-27, Surabaya, Jawa Timur</p>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <span class="text-yellow-400 text-lg md:text-xl">✉️</span>
+                            <p class="text-xs md:text-sm">dpm-ptsp@surabaya.go.id</p>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <span class="text-yellow-400 text-lg md:text-xl">📞</span>
+                            <p class="text-xs md:text-sm">(031) 123-4567</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div>
+                    <h4 class="font-bold text-white text-base md:text-lg mb-4 md:mb-6">Menu Utama</h4>
+                    <ul class="space-y-2 md:space-y-3">
+                        <li><a href="#" class="hover:text-yellow-400 transition duration-300 text-sm md:text-base">Beranda</a></li>
+                        <li><a href="#" class="hover:text-yellow-400 transition duration-300 text-sm md:text-base">Investasi</a></li>
+                        <li><a href="#" class="hover:text-yellow-400 transition duration-300 text-sm md:text-base">Aplikasi</a></li>
+                        <li><a href="#" class="hover:text-yellow-400 transition duration-300 text-sm md:text-base">Berita</a></li>
+                        <li><a href="#" class="hover:text-yellow-400 transition duration-300 text-sm md:text-base">Layanan</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="font-bold text-white text-base md:text-lg mb-4 md:mb-6">Profil DPM-PTSP</h4>
+                    <ul class="space-y-2 md:space-y-3">
+                        <li><a href="#" class="hover:text-yellow-400 transition duration-300 text-sm md:text-base">Tentang Kami</a></li>
+                        <li><a href="#" class="hover:text-yellow-400 transition duration-300 text-sm md:text-base">Visi Misi</a></li>
+                        <li><a href="#" class="hover:text-yellow-400 transition duration-300 text-sm md:text-base">Fungsi & Tugas</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="font-bold text-white text-base md:text-lg mb-4 md:mb-6">Hubungi Kami</h4>
+                    <ul class="space-y-2 md:space-y-3">
+                        <li><a href="#" class="hover:text-yellow-400 transition duration-300 text-sm md:text-base">Bantuan</a></li>
+                        <li><a href="#" class="hover:text-yellow-400 transition duration-300 text-sm md:text-base">Alamat</a></li>
+                        <li><a href="#" class="hover:text-yellow-400 transition duration-300 text-sm md:text-base">FAQ</a></li>
+                        <li><a href="#" class="hover:text-yellow-400 transition duration-300 text-sm md:text-base">Layanan Pengaduan</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-700 pt-6 md:pt-8 flex flex-col md:flex-row justify-between items-center">
+                <p class="text-xs md:text-sm mb-4 md:mb-0 text-center md:text-left">© 2024 DPM-PTSP Kota Surabaya | All Rights Reserved</p>
+                <div class="flex gap-3 md:gap-4">
+                    <a href="#" class="w-8 h-8 md:w-10 md:h-10 bg-blue-600 rounded-full flex items-center justify-center hover:bg-blue-700 transition duration-300">
+                        <img src="gambar/bxl-facebook.png" class="w-4 h-4 md:w-5 md:h-5" alt="Facebook">
+                    </a>
+                    <a href="#" class="w-8 h-8 md:w-10 md:h-10 bg-blue-400 rounded-full flex items-center justify-center hover:bg-blue-500 transition duration-300">
+                        <img src="gambar/bxl-twitter.png" class="w-4 h-4 md:w-5 md:h-5" alt="Twitter">
+                    </a>
+                    <a href="#" class="w-8 h-8 md:w-10 md:h-10 bg-pink-600 rounded-full flex items-center justify-center hover:bg-pink-700 transition duration-300">
+                        <img src="gambar/instagram-logo.png" class="w-4 h-4 md:w-5 md:h-5" alt="Instagram">
+                    </a>
+                    <a href="#" class="w-8 h-8 md:w-10 md:h-10 bg-red-600 rounded-full flex items-center justify-center hover:bg-red-700 transition duration-300">
+                        <img src="gambar/youtube-logo.png" class="w-4 h-4 md:w-5 md:h-5" alt="YouTube">
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile Menu Functions
+        const mobileBtn = document.getElementById('mobileBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+        const closeMenu = document.getElementById('closeMenu');
+
+        mobileBtn.onclick = () => mobileMenu.classList.remove('-translate-x-full');
+        closeMenu.onclick = () => mobileMenu.classList.add('-translate-x-full');
+
+        function toggleDropdown(id) {
+            document.getElementById(id).classList.toggle("hidden");
+        }
+
+        // Main Carousel Functions
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('#carousel .carousel-slide');
+        const dots = document.querySelectorAll('#carousel .carousel-dot');
+        const totalSlides = slides.length;
+
+        function initCarousel() {
+            updateCarousel();
+            
+            // Auto slide every 5 seconds
+            setInterval(() => {
+                nextSlide();
+            }, 5000);
+        }
+
+        function updateCarousel() {
+            slides.forEach((slide, index) => {
+                slide.style.opacity = index === currentSlide ? '1' : '0';
+                slide.style.zIndex = index === currentSlide ? '10' : '1';
+            });
+            
+            dots.forEach((dot, index) => {
+                dot.style.backgroundColor = index === currentSlide ? 'white' : 'rgba(255,255,255,0.6)';
+            });
+        }
+
+        function goToSlide(index) {
+            currentSlide = index;
+            updateCarousel();
+        }
+
+        function nextSlide() {
+            currentSlide = (currentSlide + 1) % totalSlides;
+            updateCarousel();
+        }
+
+        function prevSlide() {
+            currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
+            updateCarousel();
+        }
+
+        // Event Listeners for main carousel
+        document.getElementById('prevBtn').addEventListener('click', prevSlide);
+
+        dots.forEach(dot => {
+            dot.addEventListener('click', function() {
+                goToSlide(parseInt(this.getAttribute('data-index')));
+            });
+        });
+
+        // Dark Mode Toggle Functionality
+        const darkModeToggle = document.querySelector('.dark-mode-toggle');
+        const body = document.body;
+        const mainLogo = document.getElementById('main-logo');
+        const footerLogo = document.getElementById('footer-logo');
+
+        // Check for saved theme preference
+        const isDarkMode = localStorage.getItem('darkMode') === 'true';
+
+        // Apply dark mode if previously enabled
+        if (isDarkMode) {
+            enableDarkMode();
+        }
+
+        // Toggle dark mode
+        darkModeToggle.addEventListener('click', () => {
+            if (body.classList.contains('dark-mode')) {
+                disableDarkMode();
+            } else {
+                enableDarkMode();
+            }
+        });
+
+        function enableDarkMode() {
+            body.classList.add('dark-mode');
+            darkModeToggle.classList.add('active');
+            
+            // Change logo for dark mode
+            if (mainLogo) mainLogo.src = 'gambar/logoputih.png';
+            if (footerLogo) footerLogo.src = 'gambar/logohitam.png';
+            
+            // Update Highcharts for dark mode
+            updateChartForDarkMode();
+            
+            // Save preference
+            localStorage.setItem('darkMode', 'true');
+        }
+
+        function disableDarkMode() {
+            body.classList.remove('dark-mode');
+            darkModeToggle.classList.remove('active');
+            
+            // Change logo back for light mode
+            if (mainLogo) mainLogo.src = 'gambar/logo.png';
+            if (footerLogo) footerLogo.src = 'gambar/logoputih.png';
+            
+            // Update Highcharts for light mode
+            updateChartForLightMode();
+            
+            // Save preference
+            localStorage.setItem('darkMode', 'false');
+        }
+
+        function updateChartForDarkMode() {
+            const chart = Highcharts.charts.find(ch => ch && ch.renderTo.id === 'grafik');
+            if (chart) {
+                chart.update({
+                    chart: {
+                        backgroundColor: '#2d2d2d'
+                    },
+                    title: {
+                        style: {
+                            color: '#ffffff'
+                        }
+                    },
+                    xAxis: {
+                        labels: {
+                            style: {
+                                color: '#e2e8f0'
+                            }
+                        },
+                        title: {
+                            style: {
+                                color: '#e2e8f0'
+                            }
+                        }
+                    },
+                    yAxis: {
+                        labels: {
+                            style: {
+                                color: '#e2e8f0'
+                            }
+                        },
+                        title: {
+                            style: {
+                                color: '#e2e8f0'
+                            }
+                        },
+                        gridLineColor: '#4a5568'
+                    },
+                    legend: {
+                        itemStyle: {
+                            color: '#e2e8f0'
+                        }
+                    }
+                });
+            }
+        }
+
+        function updateChartForLightMode() {
+            const chart = Highcharts.charts.find(ch => ch && ch.renderTo.id === 'grafik');
+            if (chart) {
+                chart.update({
+                    chart: {
+                        backgroundColor: 'transparent'
+                    },
+                    title: {
+                        style: {
+                            color: '#333333'
+                        }
+                    },
+                    xAxis: {
+                        labels: {
+                            style: {
+                                color: '#666666'
+                            }
+                        },
+                        title: {
+                            style: {
+                                color: '#333333'
+                            }
+                        }
+                    },
+                    yAxis: {
+                        labels: {
+                            style: {
+                                color: '#666666'
+                            }
+                        },
+                        title: {
+                            style: {
+                                color: '#333333'
+                            }
+                        },
+                        gridLineColor: '#f0f0f0'
+                    },
+                    legend: {
+                        itemStyle: {
+                            color: '#333333'
+                        }
+                    }
+                });
+            }
+        }
+
+        // Tab Content Switching
+        function showContent(type) {
+            document.getElementById('content-berita').classList.add('hidden');
+            document.getElementById('content-artikel').classList.add('hidden');
+            document.getElementById('content-video').classList.add('hidden');
+
+            document.querySelectorAll('.nav-item').forEach(item => {
+                item.classList.remove('active');
+            });
+
+            document.getElementById(`menu-${type}`).classList.add('active');
+
+            const section = document.getElementById(`content-${type}`);
+            section.classList.remove('hidden');
+
+            // Animation for cards
+            const cards = section.querySelectorAll('.content-card');
+            cards.forEach((card, i) => {
+                card.classList.remove('fade-up');
+                void card.offsetWidth;
+                card.style.animationDelay = `${i * 100}ms`;
+                card.classList.add('fade-up');
+            });
+        }
+
+        // Click event for tabs
+        document.getElementById('menu-berita').addEventListener('click', () => showContent('berita'));
+        document.getElementById('menu-artikel').addEventListener('click', () => showContent('artikel'));
+        document.getElementById('menu-video').addEventListener('click', () => showContent('video'));
+
+        // Ripple effect for nav items
+        document.querySelectorAll('.nav-item').forEach(item => {
+            item.addEventListener('click', function (e) {
+                const ripple = document.createElement('div');
+                ripple.classList.add('ripple');
+                const rect = this.getBoundingClientRect();
+                const size = Math.max(rect.width, rect.height);
+                const x = e.clientX - rect.left - size / 2;
+                const y = e.clientY - rect.top - size / 2;
+
+                ripple.style.width = ripple.style.height = `${size}px`;
+                ripple.style.left = `${x}px`;
+                ripple.style.top = `${y}px`;
+
+                this.appendChild(ripple);
+
+                setTimeout(() => {
+                    ripple.remove();
+                }, 600);
+            });
+        });
+        
+        // Highcharts Chart
+        Highcharts.chart('grafik', {
+            chart: {
+                type: 'column',
+                backgroundColor: 'transparent',
+                style: {
+                    fontFamily: 'Arial, sans-serif'
+                }
+            },
+            title: {
+                text: 'Realisasi Investasi PMDN dan PMA Kota Surabaya (2020-2023)',
+                align: 'left',
+                style: {
+                    fontSize: '16px',
+                    fontWeight: 'bold',
+                    color: '#333333'
+                }
+            },
+            credits: {
+                enabled: false
+            },
+            legend: {
+                enabled: true,
+                align: 'right',
+                verticalAlign: 'top',
+                layout: 'horizontal',
+                itemStyle: {
+                    fontWeight: 'normal',
+                    fontSize: '12px'
+                }
+            },
+            xAxis: {
+                categories: ['2020', '2021', '2022', '2023'],
+                crosshair: true,
+                title: {
+                    text: 'Tahun',
+                    style: {
+                        fontWeight: 'bold'
+                    }
+                },
+                labels: {
+                    style: {
+                        fontSize: '12px',
+                        fontWeight: '600'
+                    }
+                },
+                lineColor: '#cccccc',
+                tickColor: '#cccccc'
+            },
+            yAxis: {
+                min: 0,
+                title: {
+                    text: 'Nilai Investasi (dalam Satuan Tertentu)*',
+                    style: {
+                        fontWeight: 'bold'
+                    }
+                },
+                labels: {
+                    formatter: function () {
+                        if (this.value >= 1000) {
+                            return Highcharts.numberFormat((this.value / 1000), 1, ',', '.') + ' Triliun';
+                        }
+                        return Highcharts.numberFormat(this.value, 0, ',', '.');
+                    },
+                    style: {
+                        fontSize: '10px'
+                    }
+                },
+                gridLineColor: '#f0f0f0'
+            },
+            tooltip: {
+                shared: true,
+                borderRadius: 8,
+                padding: 10,
+                formatter: function () {
+                    let tooltipText = '<b>Tahun ' + this.x + '</b><br/>';
+                    this.points.forEach(function (point) {
+                        let displayValue = Highcharts.numberFormat(point.y, 0, ',', '.');
+                        let unit = '';
+
+                        if (point.y >= 1000) {
+                            displayValue = Highcharts.numberFormat((point.y / 1000), 2, ',', '.');
+                            unit = ' T';
+                        }
+
+                        tooltipText += '<span style="color:' + point.series.color + '">\u25CF</span> ' +
+                            point.series.name + ': <b>Rp ' + displayValue + unit + '</b><br/>';
+                    });
+                    tooltipText += '<br/><span style="font-size:10px; color:#666;">*Satuan disesuaikan dengan konteks nilai terbesar.</span>';
+                    return tooltipText;
+                },
+            },
+            plotOptions: {
+                column: {
+                    pointPadding: 0.1,
+                    groupPadding: 0.2,
+                    borderRadius: 4,
+                    borderWidth: 0,
+                    dataLabels: {
+                        enabled: true,
+                        style: {
+                            fontSize: '10px',
+                            fontWeight: 'bold',
+                            textOutline: 'none'
+                        },
+                        formatter: function () {
+                            return Highcharts.numberFormat(this.y, 0, ',', '.');
+                        }
+                    }
+                }
+            },
+            series: [{
+                name: 'Investasi PMDN',
+                data: [1000, 2000, 3000, 4000],
+                color: '#005BFF'
+            }, {
+                name: 'Investasi PMA',
+                data: [500, 1000, 1500, 3500],
+                color: '#FFD600'
+            }]
+        });
+        
+        // Carousel functionality for Layanan DPM
+        document.addEventListener('DOMContentLoaded', function() {
+            const track = document.querySelector('.carousel-track');
+            const slides = document.querySelectorAll('.carousel-slide');
+            const prevBtn = document.querySelector('.carousel-prev');
+            const nextBtn = document.querySelector('.carousel-next');
+            const dots = document.querySelectorAll('.carousel-dot');
+            
+            let currentIndex = 0;
+            const totalSlides = slides.length;
+            
+            function updateCarousel() {
+                const slideWidth = slides[0].offsetWidth;
+                if (track) {
+                    track.style.transform = `translateX(-${currentIndex * slideWidth}px)`;
+                }
+                
+                // Update active dot
+                dots.forEach((dot, index) => {
+                    if (index === currentIndex) {
+                        dot.classList.add('active');
+                        dot.style.backgroundColor = '#215ABA';
+                        dot.style.width = '12px';
+                        dot.style.height = '12px';
+                    } else {
+                        dot.classList.remove('active');
+                        dot.style.backgroundColor = '#d1d5db';
+                        dot.style.width = '8px';
+                        dot.style.height = '8px';
+                    }
+                });
+            }
+            
+            function nextSlide() {
+                currentIndex = (currentIndex + 1) % totalSlides;
+                updateCarousel();
+            }
+            
+            function prevSlide() {
+                currentIndex = (currentIndex - 1 + totalSlides) % totalSlides;
+                updateCarousel();
+            }
+            
+            // Event Listeners
+            if (nextBtn) nextBtn.addEventListener('click', nextSlide);
+            if (prevBtn) prevBtn.addEventListener('click', prevSlide);
+            
+            dots.forEach(dot => {
+                dot.addEventListener('click', function() {
+                    currentIndex = parseInt(this.getAttribute('data-index'));
+                    updateCarousel();
+                });
+            });
+            
+            // Update on window resize
+            window.addEventListener('resize', updateCarousel);
+            
+            // Initialize
+            updateCarousel();
+            
+            // Initialize main carousel
+            initCarousel();
+        });
+    </script>
+</body>
+</html>
