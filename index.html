@@ -658,6 +658,43 @@
         flex: 0 0 100%;
         min-width: 100%;
     }
+
+    /* FIX 1 — body overflow */
+body {
+    overflow-x: hidden !important;
+}
+
+/* FIX 2 — chart card responsif */
+.chart-card {
+    width: 100% !important;
+    max-width: 750px !important;
+}
+
+/* FIX 3 — wrapper responsif */
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 20px !important;
+    padding: 0 10px !important;
+}
+@media (min-width: 1024px) {
+    .wrapper {
+        flex-direction: row;
+        padding: 0 20px !important;
+    }
+}
+
+/* FIX 4 — grafik height */
+#grafik {
+    height: 280px !important;
+}
+@media (min-width: 768px) {
+    #grafik { height: 400px !important; }
+}
+@media (min-width: 1024px) {
+    #grafik { height: 450px !important; }
+}
+
 </style>
 
 <body class="bg-gray-100 flex flex-col items-center justify-center min-h-screen">
@@ -1244,362 +1281,6 @@
     });
     </script>
 
-    <!-- BAR BERITA DLL -->
-    <section class="flex flex-col items-center mb-12 md:mb-16 px-4">
-        <div class="tab-bar-container mb-8 md:mb-12">
-            <div class="tab-bar-inner h-20 md:h-24 relative">
-                <!-- berita -->
-                <div id="menu-berita" class="nav-item active absolute w-[200px] md:w-[383.6px] h-20 md:h-22 left-0 top-0 cursor-pointer">
-                    <div class="bg-gradient-blue w-full h-full rounded-bl-[30px] md:rounded-bl-[63px]"></div>
-                    <div class="absolute left-[40px] md:left-[85px] top-[10px] md:top-[18px] w-[36px] h-[36px] md:w-[54px] md:h-[54px] icon-white rounded-full"></div>
-                    <div class="absolute left-[46px] md:left-[97.86px] top-[16px] md:top-[30.71px] w-[20px] h-[20px] md:w-[27.43px] md:h-[27.43px] overflow-hidden">
-                        <img src="https://arbagasdanangh.github.io/pps/logoberitaunhover.svg" class="logo-unhover w-full h-full" />
-                        <img src="https://arbagasdanangh.github.io/pps/logoberitahover.svg" class="logo-hover w-full h-full" />
-                    </div>
-                    <div class="absolute left-[80px] md:left-[144px] top-[20px] md:top-[37px] w-[60px] md:w-[101px] h-4 md:h-6 text-white text-base md:text-[23px] font-bold text-center leading-4 md:leading-6">
-                        BERITA
-                    </div>
-                </div>
-
-                <!-- artikel -->
-                <div id="menu-artikel" class="nav-item absolute w-[210px] md:w-[403.64px] h-20 md:h-22 left-[180px] md:left-[320px] top-0 cursor-pointer overflow-hidden">
-                    <div class="bg-gradient-blue w-full md:w-[410.57px] h-full rounded-bl-[30px] md:rounded-bl-[63px]"></div>
-                    <div class="absolute left-[50px] md:left-[102px] top-[10px] md:top-[18px] w-[36px] h-[36px] md:w-[54px] md:h-[54px] icon-white rounded-full"></div>
-                    <div class="absolute left-[56px] md:left-[114.14px] top-[14px] md:top-[28.29px] w-[24px] h-[24px] md:w-[34.29px] md:h-[34.29px]">
-                        <img src="https://arbagasdanangh.github.io/pps/logoartikelunhover.svg" class="logo-unhover w-full h-full" />
-                        <img src="https://arbagasdanangh.github.io/pps/logoartikelhover.svg" class="logo-hover w-full h-full" />
-                    </div>
-                    <div class="absolute left-[100px] md:left-[170px] top-[18px] md:top-[34px] w-[60px] md:w-[101px] h-4 md:h-6 text-white text-base md:text-[23px] font-bold text-center leading-4 md:leading-6">
-                        ARTIKEL
-                    </div>
-                </div>
-
-                <!-- video -->
-                <div id="menu-video" class="nav-item absolute w-[190px] md:w-[359px] h-20 md:h-22 left-[370px] md:left-[657px] top-0 cursor-pointer">
-                    <div class="bg-gradient-blue w-full h-full rounded-tr-[30px] md:rounded-tr-[63px] rounded-bl-[30px] md:rounded-bl-[63px]"></div>
-                    <div class="absolute left-[50px] md:left-[102px] top-[10px] md:top-[18px] w-[34px] h-[34px] md:w-[51px] md:h-[51px] icon-white rounded-full"></div>
-                    <div class="absolute left-[56px] md:left-[114.14px] top-[18px] md:top-[36.81px] w-[20px] h-[12px] md:w-[27.52px] md:h-[16.25px]">
-                        <img src="https://arbagasdanangh.github.io/pps/logovideounhover.svg" class="logo-unhover w-full h-full" />
-                        <img src="https://arbagasdanangh.github.io/pps/logovideohover.svg" class="logo-hover w-full h-full" />
-                    </div>
-                    <div class="absolute left-[90px] md:left-[160px] top-[18px] md:top-[34px] w-[60px] md:w-[101px] h-4 md:h-6 text-white text-base md:text-[23px] font-bold text-center leading-4 md:leading-6">
-                        VIDEO
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Konten Berita -->
-        <div id="content-berita" class="flex flex-wrap justify-center gap-4 md:gap-6 lg:gap-8 max-w-6xl">
-            <!-- Card 1 -->
-            <div class="content-card w-full max-w-[320px]">
-                <div class="bg-white rounded-[20px] md:rounded-[30px] shadow-lg overflow-hidden h-full">
-                    <div class="overflow-hidden rounded-t-[20px] md:rounded-t-3xl">
-                        <img class="w-full h-44 md:h-48 object-cover content-image"
-                            src="https://dpm-ptsp.surabaya.go.id/fileberita/kitakyushu-pembahasan-investasi-2025-2025-11-21(BERITA).jpeg" />
-                    </div>
-                    <div class="p-4 md:p-5">
-                        <h3 class="content-title text-sm md:text-base font-bold text-gray-800 mb-3 line-clamp-2">Pemkot Surabaya Terima Kunjungan Pemerintah Kota Kitakyushu...</h3>
-                        <div class="flex justify-between text-xs md:text-sm text-gray-600">
-                            <span><i class="fas fa-calendar mr-1"></i> 21-11-2025</span>
-                            <span class="font-bold"><i class="fas fa-user mr-1"></i> ADMIN DPM</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Card 2 -->
-            <div class="content-card w-full max-w-[320px]">
-                <div class="bg-white rounded-[20px] md:rounded-[30px] shadow-lg overflow-hidden h-full">
-                    <div class="overflow-hidden rounded-t-[20px] md:rounded-t-3xl">
-                        <img class="w-full h-44 md:h-48 object-cover content-image"
-                            src="https://dpm-ptsp.surabaya.go.id/fileberita/dpmptsp-bandung-kunjungan-november-2025-2025-11-20(BERITA).jpeg" />
-                    </div>
-                    <div class="p-4 md:p-5">
-                        <h3 class="content-title text-sm md:text-base font-bold text-gray-800 mb-3 line-clamp-2">Kunjungan DPMPTSP Bandung ke DPMPTSP Surabaya....</h3>
-                        <div class="flex justify-between text-xs md:text-sm text-gray-600">
-                            <span><i class="fas fa-calendar mr-1"></i> 19-11-2025</span>
-                            <span class="font-bold"><i class="fas fa-user mr-1"></i> ADMIN DPM</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Card 3 -->
-            <div class="content-card w-full max-w-[320px]">
-                <div class="bg-white rounded-[20px] md:rounded-[30px] shadow-lg overflow-hidden h-full">
-                    <div class="overflow-hidden rounded-t-[20px] md:rounded-t-3xl">
-                        <img class="w-full h-44 md:h-48 object-cover content-image"
-                            src="https://dpm-ptsp.surabaya.go.id/fileberita/depok-audit-2025-2025-11-17(BERITA).jpeg" />
-                    </div>
-                    <div class="p-4 md:p-5">
-                        <h3 class="content-title text-sm md:text-base font-bold text-gray-800 mb-3 line-clamp-2">Inspektorat Daerah Kota Depok Kunjungan Pemkot Surabaya....</h3>
-                        <div class="flex justify-between text-xs md:text-sm text-gray-600">
-                            <span><i class="fas fa-calendar mr-1"></i> 17-11-2025</span>
-                            <span class="font-bold"><i class="fas fa-user mr-1"></i> ADMIN DPM</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Card 4 -->
-            <div class="content-card w-full max-w-[320px]">
-                <div class="bg-white rounded-[20px] md:rounded-[30px] shadow-lg overflow-hidden h-full">
-                    <div class="overflow-hidden rounded-t-[20px] md:rounded-t-3xl">
-                        <img class="w-full h-44 md:h-48 object-cover content-image"
-                            src="https://dpm-ptsp.surabaya.go.id/fileberita/leng-tien-kung-2025-2025-11-17(BERITA).jpeg" />
-                    </div>
-                    <div class="p-4 md:p-5">
-                        <h3 class="content-title text-sm md:text-base font-bold text-gray-800 mb-3 line-clamp-2">Sentra Pelayanan Publik (SPP) Pakal Terima Kunjungan TK Taruna...</h3>
-                        <div class="flex justify-between text-xs md:text-sm text-gray-600">
-                            <span><i class="fas fa-calendar mr-1"></i> 17-11-2025</span>
-                            <span class="font-bold"><i class="fas fa-user mr-1"></i> ADMIN DPM</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Card 5 -->
-            <div class="content-card w-full max-w-[320px]">
-                <div class="bg-white rounded-[20px] md:rounded-[30px] shadow-lg overflow-hidden h-full">
-                    <div class="overflow-hidden rounded-t-[20px] md:rounded-t-3xl">
-                        <img class="w-full h-44 md:h-48 object-cover content-image"
-                            src="https://dpm-ptsp.surabaya.go.id/fileberita/afrika-selatan-2025-2025-11-17(BERITA).jpeg" />
-                    </div>
-                    <div class="p-4 md:p-5">
-                        <h3 class="content-title text-sm md:text-base font-bold text-gray-800 mb-3 line-clamp-2">Pemerintah Kota Surabaya Terima Kunjungan Delegasi Kota Mangaung...</h3>
-                        <div class="flex justify-between text-xs md:text-sm text-gray-600">
-                            <span><i class="fas fa-calendar mr-1"></i> 17-11-2025</span>
-                            <span class="font-bold"><i class="fas fa-user mr-1"></i> ADMIN DPM</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Card 6 -->
-            <div class="content-card w-full max-w-[320px]">
-                <div class="bg-white rounded-[20px] md:rounded-[30px] shadow-lg overflow-hidden h-full">
-                    <div class="overflow-hidden rounded-t-[20px] md:rounded-t-3xl">
-                        <img class="w-full h-44 md:h-48 object-cover content-image"
-                            src="https://dpm-ptsp.surabaya.go.id/fileberita/studitor-grobongan-nov-2025-2025-11-14(BERITA).jpeg" />
-                    </div>
-                    <div class="p-4 md:p-5">
-                        <h3 class="content-title text-sm md:text-base font-bold text-gray-800 mb-3 line-clamp-2">Kunjungan dan Studi Tiru Pemkab Grobogan ke Pemkot Surabaya...</h3>
-                        <div class="flex justify-between text-xs md:text-sm text-gray-600">
-                            <span><i class="fas fa-calendar mr-1"></i> 17-11-2025</span>
-                            <span class="font-bold"><i class="fas fa-user mr-1"></i> ADMIN DPM</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Konten Artikel (Hidden) -->
-        <div id="content-artikel" class="hidden flex flex-wrap justify-center gap-4 md:gap-6 lg:gap-8 max-w-6xl">
-            <!-- Artikel 1 -->
-            <div class="content-card w-full max-w-[320px]">
-                <div class="bg-white rounded-[20px] md:rounded-[30px] shadow-lg overflow-hidden h-full">
-                    <div class="overflow-hidden rounded-t-[20px] md:rounded-t-3xl">
-                        <img class="w-full h-44 md:h-48 object-cover content-image"
-                            src="https://images.unsplash.com/photo-1504711434969-e33886168f5c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" />
-                    </div>
-                    <div class="p-4 md:p-5">
-                        <h3 class="content-title text-sm md:text-base font-bold text-gray-800 mb-3 line-clamp-2">Update berita terbaru seputar politik dan ekonomi</h3>
-                        <div class="flex justify-between text-xs md:text-sm text-gray-600">
-                            <span><i class="fas fa-calendar mr-1"></i> 12-11-2025</span>
-                            <span class="font-bold"><i class="fas fa-user mr-1"></i> ADMIN DPM</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Artikel 2 -->
-            <div class="content-card w-full max-w-[320px]">
-                <div class="bg-white rounded-[20px] md:rounded-[30px] shadow-lg overflow-hidden h-full">
-                    <div class="overflow-hidden rounded-t-[20px] md:rounded-t-3xl">
-                        <img class="w-full h-44 md:h-48 object-cover content-image"
-                            src="https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1172&q=80" />
-                    </div>
-                    <div class="p-4 md:p-5">
-                        <h3 class="content-title text-sm md:text-base font-bold text-gray-800 mb-3 line-clamp-2">Panduan lengkap untuk menulis artikel yang menarik</h3>
-                        <div class="flex justify-between text-xs md:text-sm text-gray-600">
-                            <span><i class="fas fa-calendar mr-1"></i> 12-11-2025</span>
-                            <span class="font-bold"><i class="fas fa-user mr-1"></i> ADMIN DPM</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Artikel 3 -->
-            <div class="content-card w-full max-w-[320px]">
-                <div class="bg-white rounded-[20px] md:rounded-[30px] shadow-lg overflow-hidden h-full">
-                    <div class="overflow-hidden rounded-t-[20px] md:rounded-t-3xl">
-                        <img class="w-full h-44 md:h-48 object-cover content-image"
-                            src="https://images.unsplash.com/photo-1611162617474-5b21e879e113?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1074&q=80" />
-                    </div>
-                    <div class="p-4 md:p-5">
-                        <h3 class="content-title text-sm md:text-base font-bold text-gray-800 mb-3 line-clamp-2">Belajar membuat konten video yang menarik dan informatif</h3>
-                        <div class="flex justify-between text-xs md:text-sm text-gray-600">
-                            <span><i class="fas fa-calendar mr-1"></i> 12-11-2025</span>
-                            <span class="font-bold"><i class="fas fa-user mr-1"></i> ADMIN DPM</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Artikel 4 -->
-            <div class="content-card w-full max-w-[320px]">
-                <div class="bg-white rounded-[20px] md:rounded-[30px] shadow-lg overflow-hidden h-full">
-                    <div class="overflow-hidden rounded-t-[20px] md:rounded-t-3xl">
-                        <img class="w-full h-44 md:h-48 object-cover content-image"
-                            src="https://images.unsplash.com/photo-1611162617474-5b21e879e113?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1074&q=80" />
-                    </div>
-                    <div class="p-4 md:p-5">
-                        <h3 class="content-title text-sm md:text-base font-bold text-gray-800 mb-3 line-clamp-2">Tips meningkatkan kualitas artikel untuk pemula</h3>
-                        <div class="flex justify-between text-xs md:text-sm text-gray-600">
-                            <span><i class="fas fa-calendar mr-1"></i> 12-11-2025</span>
-                            <span class="font-bold"><i class="fas fa-user mr-1"></i> ADMIN DPM</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Artikel 5 -->
-            <div class="content-card w-full max-w-[320px]">
-                <div class="bg-white rounded-[20px] md:rounded-[30px] shadow-lg overflow-hidden h-full">
-                    <div class="overflow-hidden rounded-t-[20px] md:rounded-t-3xl">
-                        <img class="w-full h-44 md:h-48 object-cover content-image"
-                            src="https://images.unsplash.com/photo-1611162617474-5b21e879e113?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1074&q=80" />
-                    </div>
-                    <div class="p-4 md:p-5">
-                        <h3 class="content-title text-sm md:text-base font-bold text-gray-800 mb-3 line-clamp-2">Teknik menulis artikel yang SEO friendly</h3>
-                        <div class="flex justify-between text-xs md:text-sm text-gray-600">
-                            <span><i class="fas fa-calendar mr-1"></i> 12-11-2025</span>
-                            <span class="font-bold"><i class="fas fa-user mr-1"></i> ADMIN DPM</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Artikel 6 -->
-            <div class="content-card w-full max-w-[320px]">
-                <div class="bg-white rounded-[20px] md:rounded-[30px] shadow-lg overflow-hidden h-full">
-                    <div class="flex flex-col items-center justify-center h-full p-6">
-                        <h3 class="content-title text-lg md:text-xl font-bold text-gray-800 text-center mb-4">ARTIKEL Tutorial Terbaru</h3>
-                        <p class="text-gray-600 text-sm md:text-base text-center">Temukan panduan lengkap untuk menulis artikel berkualitas</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Konten Video (Hidden) -->
-        <div id="content-video" class="hidden flex flex-wrap justify-center gap-4 md:gap-6 lg:gap-8 max-w-6xl">
-            <!-- Video 1 -->
-            <div class="content-card w-full max-w-[320px]">
-                <div class="bg-white rounded-[20px] md:rounded-[30px] shadow-lg overflow-hidden h-full">
-                    <div class="overflow-hidden rounded-t-[20px] md:rounded-t-3xl">
-                        <img class="w-full h-44 md:h-48 object-cover content-image"
-                            src="https://images.unsplash.com/photo-1504711434969-e33886168f5c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" />
-                    </div>
-                    <div class="p-4 md:p-5">
-                        <h3 class="content-title text-sm md:text-base font-bold text-gray-800 mb-3 line-clamp-2">Update berita terbaru seputar politik dan ekonomi</h3>
-                        <div class="flex justify-between text-xs md:text-sm text-gray-600">
-                            <span><i class="fas fa-calendar mr-1"></i> 12-11-2025</span>
-                            <span class="font-bold"><i class="fas fa-user mr-1"></i> ADMIN DPM</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Video 2 -->
-            <div class="content-card w-full max-w-[320px]">
-                <div class="bg-white rounded-[20px] md:rounded-[30px] shadow-lg overflow-hidden h-full">
-                    <div class="overflow-hidden rounded-t-[20px] md:rounded-t-3xl">
-                        <img class="w-full h-44 md:h-48 object-cover content-image"
-                            src="https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1172&q=80" />
-                    </div>
-                    <div class="p-4 md:p-5">
-                        <h3 class="content-title text-sm md:text-base font-bold text-gray-800 mb-3 line-clamp-2">Panduan lengkap untuk membuat video menarik</h3>
-                        <div class="flex justify-between text-xs md:text-sm text-gray-600">
-                            <span><i class="fas fa-calendar mr-1"></i> 12-11-2025</span>
-                            <span class="font-bold"><i class="fas fa-user mr-1"></i> ADMIN DPM</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Video 3 -->
-            <div class="content-card w-full max-w-[320px]">
-                <div class="bg-white rounded-[20px] md:rounded-[30px] shadow-lg overflow-hidden h-full">
-                    <div class="overflow-hidden rounded-t-[20px] md:rounded-t-3xl">
-                        <img class="w-full h-44 md:h-48 object-cover content-image"
-                            src="https://images.unsplash.com/photo-1611162617474-5b21e879e113?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1074&q=80" />
-                    </div>
-                    <div class="p-4 md:p-5">
-                        <h3 class="content-title text-sm md:text-base font-bold text-gray-800 mb-3 line-clamp-2">Belajar membuat konten video yang menarik dan informatif</h3>
-                        <div class="flex justify-between text-xs md:text-sm text-gray-600">
-                            <span><i class="fas fa-calendar mr-1"></i> 12-11-2025</span>
-                            <span class="font-bold"><i class="fas fa-user mr-1"></i> ADMIN DPM</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Video 4 -->
-            <div class="content-card w-full max-w-[320px]">
-                <div class="bg-white rounded-[20px] md:rounded-[30px] shadow-lg overflow-hidden h-full">
-                    <div class="overflow-hidden rounded-t-[20px] md:rounded-t-3xl">
-                        <img class="w-full h-44 md:h-48 object-cover content-image"
-                            src="https://images.unsplash.com/photo-1611162617474-5b21e879e113?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1074&q=80" />
-                    </div>
-                    <div class="p-4 md:p-5">
-                        <h3 class="content-title text-sm md:text-base font-bold text-gray-800 mb-3 line-clamp-2">Teknik editing video untuk pemula</h3>
-                        <div class="flex justify-between text-xs md:text-sm text-gray-600">
-                            <span><i class="fas fa-calendar mr-1"></i> 12-11-2025</span>
-                            <span class="font-bold"><i class="fas fa-user mr-1"></i> ADMIN DPM</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Video 5 -->
-            <div class="content-card w-full max-w-[320px]">
-                <div class="bg-white rounded-[20px] md:rounded-[30px] shadow-lg overflow-hidden h-full">
-                    <div class="overflow-hidden rounded-t-[20px] md:rounded-t-3xl">
-                        <img class="w-full h-44 md:h-48 object-cover content-image"
-                            src="https://images.unsplash.com/photo-1611162617474-5b21e879e113?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1074&q=80" />
-                    </div>
-                    <div class="p-4 md:p-5">
-                        <h3 class="content-title text-sm md:text-base font-bold text-gray-800 mb-3 line-clamp-2">Cara membuat thumbnail yang menarik untuk video</h3>
-                        <div class="flex justify-between text-xs md:text-sm text-gray-600">
-                            <span><i class="fas fa-calendar mr-1"></i> 12-11-2025</span>
-                            <span class="font-bold"><i class="fas fa-user mr-1"></i> ADMIN DPM</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Video 6 -->
-            <div class="content-card w-full max-w-[320px]">
-                <div class="bg-white rounded-[20px] md:rounded-[30px] shadow-lg overflow-hidden h-full">
-                    <div class="flex flex-col items-center justify-center h-full p-6">
-                        <h3 class="content-title text-lg md:text-xl font-bold text-gray-800 text-center mb-4">Video Tutorial Terbaru</h3>
-                        <p class="text-gray-600 text-sm md:text-base text-center">Tonton video tutorial terbaru untuk belajar lebih mudah</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Load More Button -->
-        <div class="pt-8 md:pt-16">
-            <div class="bg-yellow-400 rounded-full px-4 py-3 md:px-6 md:py-5 inline-block cursor-pointer hover:bg-yellow-300 transition">
-                <span class="text-blue-700 font-bold text-sm md:text-base flex items-center gap-2">
-                    BACA SELENGKAPNYA 
-                    <span class="text-base md:text-lg">›</span>
-                </span>
-            </div>
-        </div>
-    </section>
 
 
     <!-- PENGADUAN SECTION -->
