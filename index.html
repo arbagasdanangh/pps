@@ -1916,5 +1916,34 @@ body {
             initCarousel();
         });
     </script>
+    
+<script>
+    const tabs = {
+        berita: document.getElementById('tab-berita'),
+        artikel: document.getElementById('tab-artikel'),
+        video: document.getElementById('tab-video')
+    };
+
+    const contents = {
+        berita: document.getElementById('content-berita'),
+        artikel: document.getElementById('content-artikel'),
+        video: document.getElementById('content-video')
+    };
+
+    Object.keys(tabs).forEach(key => {
+        tabs[key].addEventListener('click', () => {
+            // reset
+            Object.values(tabs).forEach(btn => {
+                btn.classList.remove("bg-blue-600", "text-white");
+                btn.classList.add("text-blue-700");
+            });
+            Object.values(contents).forEach(c => c.classList.add("hidden"));
+
+            // activate
+            tabs[key].classList.add("bg-blue-600", "text-white");
+            contents[key].classList.remove("hidden");
+        });
+    });
+</script>
 </body>
 </html>
