@@ -1188,6 +1188,94 @@ body {
             </div>
         </div>
     </section>
+
+    <!-- SECTION TAB BERITA / ARTIKEL / VIDEO -->
+<section class="flex flex-col items-center mb-16 px-4">
+
+    <!-- TAB BAR -->
+    <div class="flex bg-blue-600/10 rounded-full p-2 gap-2 mb-10">
+        <button id="tab-berita"
+            class="tab-btn active px-6 py-3 rounded-full bg-blue-600 text-white font-semibold shadow-sm transition">
+            Berita
+        </button>
+
+        <button id="tab-artikel"
+            class="tab-btn px-6 py-3 rounded-full text-blue-700 font-semibold hover:bg-blue-200 transition">
+            Artikel
+        </button>
+
+        <button id="tab-video"
+            class="tab-btn px-6 py-3 rounded-full text-blue-700 font-semibold hover:bg-blue-200 transition">
+            Video
+        </button>
+    </div>
+
+    <!-- CONTENT WRAPPER -->
+    <div class="w-full max-w-6xl">
+
+        <!-- BERITA -->
+        <div id="content-berita" class="tab-content grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            
+            <!-- CARD -->
+            <div class="bg-white rounded-2xl shadow-lg overflow-hidden">
+                <img class="w-full h-48 object-cover"
+                    src="https://dpm-ptsp.surabaya.go.id/fileberita/kitakyushu-pembahasan-investasi-2025-2025-11-21(BERITA).jpeg">
+                <div class="p-5">
+                    <h3 class="font-bold text-gray-800 text-base mb-2 line-clamp-2">
+                        Pemkot Surabaya Terima Kunjungan Pemerintah Kota Kitakyushu...
+                    </h3>
+                    <div class="text-gray-600 text-sm flex justify-between">
+                        <span>21-11-2025</span>
+                        <span class="font-bold">ADMIN DPM</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CARD lainnya tinggal copy sesuai kebutuhan -->
+
+        </div>
+
+        <!-- ARTIKEL -->
+        <div id="content-artikel" class="tab-content hidden grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+
+            <div class="bg-white rounded-2xl shadow-lg overflow-hidden">
+                <img class="w-full h-48 object-cover"
+                    src="https://images.unsplash.com/photo-1504711434969-e33886168f5c?auto=format&fit=crop&w=1170&q=80">
+                <div class="p-5">
+                    <h3 class="font-bold text-gray-800 text-base mb-2 line-clamp-2">
+                        Update berita terbaru seputar politik dan ekonomi
+                    </h3>
+                    <div class="text-gray-600 text-sm flex justify-between">
+                        <span>12-11-2025</span>
+                        <span class="font-bold">ADMIN DPM</span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- VIDEO -->
+        <div id="content-video" class="tab-content hidden grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+
+            <div class="bg-white rounded-2xl shadow-lg overflow-hidden">
+                <img class="w-full h-48 object-cover"
+                    src="https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?auto=format&fit=crop&w=1172&q=80">
+                <div class="p-5">
+                    <h3 class="font-bold text-gray-800 text-base mb-2 line-clamp-2">
+                        Belajar membuat konten video menarik
+                    </h3>
+                    <div class="text-gray-600 text-sm flex justify-between">
+                        <span>12-11-2025</span>
+                        <span class="font-bold">ADMIN DPM</span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
     
 
     <style>
