@@ -1,240 +1,753 @@
-<?php
-// ==============================
-// TRANSLATE VIA MyMemory API
-// ==============================
-if (isset($_POST["texts"]) && isset($_POST["lang"])) {
-    $texts = json_decode($_POST["texts"], true);
-    $lang = $_POST["lang"];
-    $translated = [];
-
-    foreach ($texts as $key => $text) {
-        $pair = ($lang === "en") ? "id|en" : "en|id";
-        $url = "https://api.mymemory.translated.net/get?q=" . urlencode($text) . "&langpair=$pair";
-        $response = @file_get_contents($url);
-        $data = json_decode($response, true);
-        $translated[$key] = $data["responseData"]["translatedText"] ?? $text;
-    }
-
-    echo json_encode($translated);
-    exit;
-}
-
-// ==============================
-// DATA BERITA
-// ==============================
-$article = [
-    "title" => "Pemerintah Kota Surabaya Terima Kunjungan Pemerintah Kota Kitakyushu untuk Survei Awal Pengembangan Ekonomi Hijau dan Pembahasan Investasi",
-    "date" => "14 November 2025",
-    "category" => "Berita",
-    "content" => "DPMPTSP Kota Surabaya menerima kunjungan delegasi Pemerintah Kota Kitakyushu, Jepang, dalam rangka survei awal pengembangan ekonomi hijau dan pembahasan potensi investasi di Surabaya. Kunjungan ini dilakukan untuk memperkuat kerja sama ekonomi dan pertukaran pengalaman dalam pembangunan berkelanjutan.",
-    "tags" => ["Surabaya", "Investasi", "Kerja Sama", "Ekonomi Hijau"]
-];
-
-$related_news = [
-    ["title"=>"Pemkot Surabaya Luncurkan Program Smart City Baru","date"=>"10 November 2025"],
-    ["title"=>"DPMPTSP Surabaya Gelar Pelatihan Wirausaha Digital","date"=>"12 November 2025"],
-    ["title"=>"Kerja Sama Surabaya-Kitakyushu Kembangkan Transportasi Ramah Lingkungan","date"=>"13 November 2025"],
-];
-?>
-<!DOCTYPE html>
-<html lang="id">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>DPMPTSP Surabaya - Berita & Artikel</title>
-<link rel="shortcut icon" href="gambar/logohitam.png">
-<script src="https://cdn.tailwindcss.com"></script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-
-<style>
-* { font-family: 'Inter', sans-serif; }
-body { background-color: #f9fafb; }
-.translate { transition: all 0.3s; }
-
-/* Loader */
-#loader {
-    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-    background: white; display: flex; align-items: center; justify-content: center;
-    z-index: 50;
-}
-.animate-spin { border: 4px solid #ccc; border-top-color: #215ABA; border-radius: 50%; width: 50px; height: 50px; }
-
-/* Scroll to top button */
-#scrollToTop { opacity: 0; visibility: hidden; transition: all 0.3s; }
-
-/* Dropdown transition */
-.dropdown-enter { opacity: 0; transform: translateY(-10px); }
-.dropdown-enter-active { opacity: 1; transform: translateY(0); transition: opacity 200ms, transform 200ms; }
-.dropdown-exit { opacity: 1; transform: translateY(0); }
-.dropdown-exit-active { opacity: 0; transform: translateY(-10px); transition: opacity 200ms, transform 200ms; }
-</style>
-</head>
-<body class="bg-gray-50 relative">
-
-<!-- LOADER -->
-<div id="loader"><div class="animate-spin"></div></div>
-
-<!-- HEADER -->
-<header class="bg-black text-gray-200 text-sm">
-<div class="max-w-7xl mx-auto px-4 h-10 flex items-center justify-between">
-    <div id="current-date" class="translate" data-id="Mengambil tanggal...">Mengambil tanggal...</div>
-    <div class="overflow-hidden">
-        <div class="animate-scroll-text whitespace-nowrap !text-yellow-400 translate" data-id="MPP Surabaya menerima penghargaan pelayanan publik terbaik - Kunjungan Pemkab Grobogan ke Pemkot Surabaya">
-            MPP Surabaya menerima penghargaan pelayanan publik terbaik - Kunjungan Pemkab Grobogan ke Pemkot Surabaya
+<html lang="id"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DPM-PTSP Surabaya - Pelayanan Investasi &amp; Perizinan Terpadu</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Animate.css untuk animasi -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <!-- Custom CSS untuk animasi tambahan -->
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        /* Animasi custom */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .animate-fadeInUp {
+            animation: fadeInUp 0.5s ease-out;
+        }
+        
+        /* Hover effect untuk kartu */
+        .card-hover {
+            transition: all 0.3s ease;
+        }
+        
+        .card-hover:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        
+        /* Gradient background untuk hero section */
+        .hero-gradient {
+            background: linear-gradient(135deg, #1e40af 0%, #1d4ed8 50%, #fbbf24 100%);
+        }
+        
+        /* Custom shadow untuk elemen */
+        .shadow-custom {
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+        }
+        
+        /* Animasi untuk ikon */
+        .icon-bounce {
+            animation: bounce 2s infinite;
+        }
+        
+        @keyframes bounce {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+        
+        /* Slider animation */
+        .slide-in {
+            animation: slideInRight 0.7s ease-out;
+        }
+        
+        @keyframes slideInRight {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+    </style>
+    <!-- Konfigurasi Tailwind -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            50: '#eff6ff',
+                            100: '#dbeafe',
+                            600: '#2563eb',
+                            700: '#1d4ed8',
+                            800: '#1e40af',
+                        },
+                        secondary: {
+                            400: '#fbbf24',
+                            500: '#f59e0b',
+                        }
+                    },
+                    animation: {
+                        'pulse-slow': 'pulse 3s infinite',
+                        'bounce-slow': 'bounce 2s infinite',
+                        'spin-slow': 'spin 4s linear infinite',
+                    }
+                }
+            }
+        }
+    </script>
+<style>*, ::before, ::after{--tw-border-spacing-x:0;--tw-border-spacing-y:0;--tw-translate-x:0;--tw-translate-y:0;--tw-rotate:0;--tw-skew-x:0;--tw-skew-y:0;--tw-scale-x:1;--tw-scale-y:1;--tw-pan-x: ;--tw-pan-y: ;--tw-pinch-zoom: ;--tw-scroll-snap-strictness:proximity;--tw-gradient-from-position: ;--tw-gradient-via-position: ;--tw-gradient-to-position: ;--tw-ordinal: ;--tw-slashed-zero: ;--tw-numeric-figure: ;--tw-numeric-spacing: ;--tw-numeric-fraction: ;--tw-ring-inset: ;--tw-ring-offset-width:0px;--tw-ring-offset-color:#fff;--tw-ring-color:rgb(59 130 246 / 0.5);--tw-ring-offset-shadow:0 0 #0000;--tw-ring-shadow:0 0 #0000;--tw-shadow:0 0 #0000;--tw-shadow-colored:0 0 #0000;--tw-blur: ;--tw-brightness: ;--tw-contrast: ;--tw-grayscale: ;--tw-hue-rotate: ;--tw-invert: ;--tw-saturate: ;--tw-sepia: ;--tw-drop-shadow: ;--tw-backdrop-blur: ;--tw-backdrop-brightness: ;--tw-backdrop-contrast: ;--tw-backdrop-grayscale: ;--tw-backdrop-hue-rotate: ;--tw-backdrop-invert: ;--tw-backdrop-opacity: ;--tw-backdrop-saturate: ;--tw-backdrop-sepia: ;--tw-contain-size: ;--tw-contain-layout: ;--tw-contain-paint: ;--tw-contain-style: }::backdrop{--tw-border-spacing-x:0;--tw-border-spacing-y:0;--tw-translate-x:0;--tw-translate-y:0;--tw-rotate:0;--tw-skew-x:0;--tw-skew-y:0;--tw-scale-x:1;--tw-scale-y:1;--tw-pan-x: ;--tw-pan-y: ;--tw-pinch-zoom: ;--tw-scroll-snap-strictness:proximity;--tw-gradient-from-position: ;--tw-gradient-via-position: ;--tw-gradient-to-position: ;--tw-ordinal: ;--tw-slashed-zero: ;--tw-numeric-figure: ;--tw-numeric-spacing: ;--tw-numeric-fraction: ;--tw-ring-inset: ;--tw-ring-offset-width:0px;--tw-ring-offset-color:#fff;--tw-ring-color:rgb(59 130 246 / 0.5);--tw-ring-offset-shadow:0 0 #0000;--tw-ring-shadow:0 0 #0000;--tw-shadow:0 0 #0000;--tw-shadow-colored:0 0 #0000;--tw-blur: ;--tw-brightness: ;--tw-contrast: ;--tw-grayscale: ;--tw-hue-rotate: ;--tw-invert: ;--tw-saturate: ;--tw-sepia: ;--tw-drop-shadow: ;--tw-backdrop-blur: ;--tw-backdrop-brightness: ;--tw-backdrop-contrast: ;--tw-backdrop-grayscale: ;--tw-backdrop-hue-rotate: ;--tw-backdrop-invert: ;--tw-backdrop-opacity: ;--tw-backdrop-saturate: ;--tw-backdrop-sepia: ;--tw-contain-size: ;--tw-contain-layout: ;--tw-contain-paint: ;--tw-contain-style: }/* ! tailwindcss v3.4.17 | MIT License | https://tailwindcss.com */*,::after,::before{box-sizing:border-box;border-width:0;border-style:solid;border-color:#e5e7eb}::after,::before{--tw-content:''}:host,html{line-height:1.5;-webkit-text-size-adjust:100%;-moz-tab-size:4;tab-size:4;font-family:ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";font-feature-settings:normal;font-variation-settings:normal;-webkit-tap-highlight-color:transparent}body{margin:0;line-height:inherit}hr{height:0;color:inherit;border-top-width:1px}abbr:where([title]){-webkit-text-decoration:underline dotted;text-decoration:underline dotted}h1,h2,h3,h4,h5,h6{font-size:inherit;font-weight:inherit}a{color:inherit;text-decoration:inherit}b,strong{font-weight:bolder}code,kbd,pre,samp{font-family:ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;font-feature-settings:normal;font-variation-settings:normal;font-size:1em}small{font-size:80%}sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}sub{bottom:-.25em}sup{top:-.5em}table{text-indent:0;border-color:inherit;border-collapse:collapse}button,input,optgroup,select,textarea{font-family:inherit;font-feature-settings:inherit;font-variation-settings:inherit;font-size:100%;font-weight:inherit;line-height:inherit;letter-spacing:inherit;color:inherit;margin:0;padding:0}button,select{text-transform:none}button,input:where([type=button]),input:where([type=reset]),input:where([type=submit]){-webkit-appearance:button;background-color:transparent;background-image:none}:-moz-focusring{outline:auto}:-moz-ui-invalid{box-shadow:none}progress{vertical-align:baseline}::-webkit-inner-spin-button,::-webkit-outer-spin-button{height:auto}[type=search]{-webkit-appearance:textfield;outline-offset:-2px}::-webkit-search-decoration{-webkit-appearance:none}::-webkit-file-upload-button{-webkit-appearance:button;font:inherit}summary{display:list-item}blockquote,dd,dl,figure,h1,h2,h3,h4,h5,h6,hr,p,pre{margin:0}fieldset{margin:0;padding:0}legend{padding:0}menu,ol,ul{list-style:none;margin:0;padding:0}dialog{padding:0}textarea{resize:vertical}input::placeholder,textarea::placeholder{opacity:1;color:#9ca3af}[role=button],button{cursor:pointer}:disabled{cursor:default}audio,canvas,embed,iframe,img,object,svg,video{display:block;vertical-align:middle}img,video{max-width:100%;height:auto}[hidden]:where(:not([hidden=until-found])){display:none}.container{width:100%}@media (min-width: 640px){.container{max-width:640px}}@media (min-width: 768px){.container{max-width:768px}}@media (min-width: 1024px){.container{max-width:1024px}}@media (min-width: 1280px){.container{max-width:1280px}}@media (min-width: 1536px){.container{max-width:1536px}}.absolute{position:absolute}.relative{position:relative}.sticky{position:sticky}.-bottom-4{bottom:-1rem}.-left-4{left:-1rem}.-right-4{right:-1rem}.-top-4{top:-1rem}.bottom-0{bottom:0px}.left-0{left:0px}.right-0{right:0px}.right-4{right:1rem}.top-0{top:0px}.top-4{top:1rem}.z-50{z-index:50}.order-1{order:1}.order-2{order:2}.mx-auto{margin-left:auto;margin-right:auto}.mb-12{margin-bottom:3rem}.mb-3{margin-bottom:0.75rem}.mb-4{margin-bottom:1rem}.mb-6{margin-bottom:1.5rem}.mb-8{margin-bottom:2rem}.ml-1{margin-left:0.25rem}.ml-2{margin-left:0.5rem}.mr-1{margin-right:0.25rem}.mr-2{margin-right:0.5rem}.mr-3{margin-right:0.75rem}.mr-4{margin-right:1rem}.mt-1{margin-top:0.25rem}.mt-12{margin-top:3rem}.mt-6{margin-top:1.5rem}.block{display:block}.flex{display:flex}.inline-flex{display:inline-flex}.grid{display:grid}.hidden{display:none}.h-10{height:2.5rem}.h-12{height:3rem}.h-16{height:4rem}.h-20{height:5rem}.h-24{height:6rem}.h-3{height:0.75rem}.h-32{height:8rem}.h-48{height:12rem}.h-64{height:16rem}.h-8{height:2rem}.h-96{height:24rem}.h-full{height:100%}.w-10{width:2.5rem}.w-12{width:3rem}.w-16{width:4rem}.w-20{width:5rem}.w-24{width:6rem}.w-3{width:0.75rem}.w-32{width:8rem}.w-64{width:16rem}.w-8{width:2rem}.w-96{width:24rem}.w-full{width:100%}.max-w-2xl{max-width:42rem}.flex-shrink-0{flex-shrink:0}.-translate-x-64{--tw-translate-x:-16rem;transform:translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))}.-translate-y-16{--tw-translate-y:-4rem;transform:translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))}.-translate-y-32{--tw-translate-y:-8rem;transform:translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))}.translate-x-16{--tw-translate-x:4rem;transform:translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))}.translate-x-32{--tw-translate-x:8rem;transform:translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))}.translate-y-64{--tw-translate-y:16rem;transform:translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))}.transform{transform:translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))}.grid-cols-1{grid-template-columns:repeat(1, minmax(0, 1fr))}.grid-cols-2{grid-template-columns:repeat(2, minmax(0, 1fr))}.flex-wrap{flex-wrap:wrap}.items-start{align-items:flex-start}.items-center{align-items:center}.justify-center{justify-content:center}.justify-between{justify-content:space-between}.gap-12{gap:3rem}.gap-4{gap:1rem}.gap-6{gap:1.5rem}.gap-8{gap:2rem}.space-x-2 > :not([hidden]) ~ :not([hidden]){--tw-space-x-reverse:0;margin-right:calc(0.5rem * var(--tw-space-x-reverse));margin-left:calc(0.5rem * calc(1 - var(--tw-space-x-reverse)))}.space-x-3 > :not([hidden]) ~ :not([hidden]){--tw-space-x-reverse:0;margin-right:calc(0.75rem * var(--tw-space-x-reverse));margin-left:calc(0.75rem * calc(1 - var(--tw-space-x-reverse)))}.space-x-4 > :not([hidden]) ~ :not([hidden]){--tw-space-x-reverse:0;margin-right:calc(1rem * var(--tw-space-x-reverse));margin-left:calc(1rem * calc(1 - var(--tw-space-x-reverse)))}.space-x-8 > :not([hidden]) ~ :not([hidden]){--tw-space-x-reverse:0;margin-right:calc(2rem * var(--tw-space-x-reverse));margin-left:calc(2rem * calc(1 - var(--tw-space-x-reverse)))}.space-y-3 > :not([hidden]) ~ :not([hidden]){--tw-space-y-reverse:0;margin-top:calc(0.75rem * calc(1 - var(--tw-space-y-reverse)));margin-bottom:calc(0.75rem * var(--tw-space-y-reverse))}.space-y-4 > :not([hidden]) ~ :not([hidden]){--tw-space-y-reverse:0;margin-top:calc(1rem * calc(1 - var(--tw-space-y-reverse)));margin-bottom:calc(1rem * var(--tw-space-y-reverse))}.overflow-hidden{overflow:hidden}.rounded-2xl{border-radius:1rem}.rounded-full{border-radius:9999px}.rounded-lg{border-radius:0.5rem}.rounded-xl{border-radius:0.75rem}.border-t{border-top-width:1px}.border-blue-700{--tw-border-opacity:1;border-color:rgb(29 78 216 / var(--tw-border-opacity, 1))}.border-gray-200{--tw-border-opacity:1;border-color:rgb(229 231 235 / var(--tw-border-opacity, 1))}.bg-gray-50{--tw-bg-opacity:1;background-color:rgb(249 250 251 / var(--tw-bg-opacity, 1))}.bg-blue-100{--tw-bg-opacity:1;background-color:rgb(219 234 254 / var(--tw-bg-opacity, 1))}.bg-blue-600{--tw-bg-opacity:1;background-color:rgb(37 99 235 / var(--tw-bg-opacity, 1))}.bg-blue-700{--tw-bg-opacity:1;background-color:rgb(29 78 216 / var(--tw-bg-opacity, 1))}.bg-blue-800{--tw-bg-opacity:1;background-color:rgb(30 64 175 / var(--tw-bg-opacity, 1))}.bg-white{--tw-bg-opacity:1;background-color:rgb(255 255 255 / var(--tw-bg-opacity, 1))}.bg-yellow-100{--tw-bg-opacity:1;background-color:rgb(254 249 195 / var(--tw-bg-opacity, 1))}.bg-yellow-400{--tw-bg-opacity:1;background-color:rgb(250 204 21 / var(--tw-bg-opacity, 1))}.bg-gradient-to-b{background-image:linear-gradient(to bottom, var(--tw-gradient-stops))}.bg-gradient-to-br{background-image:linear-gradient(to bottom right, var(--tw-gradient-stops))}.bg-gradient-to-r{background-image:linear-gradient(to right, var(--tw-gradient-stops))}.from-blue-100{--tw-gradient-from:#dbeafe var(--tw-gradient-from-position);--tw-gradient-to:rgb(219 234 254 / 0) var(--tw-gradient-to-position);--tw-gradient-stops:var(--tw-gradient-from), var(--tw-gradient-to)}.from-blue-500{--tw-gradient-from:#3b82f6 var(--tw-gradient-from-position);--tw-gradient-to:rgb(59 130 246 / 0) var(--tw-gradient-to-position);--tw-gradient-stops:var(--tw-gradient-from), var(--tw-gradient-to)}.from-blue-600{--tw-gradient-from:#2563eb var(--tw-gradient-from-position);--tw-gradient-to:rgb(37 99 235 / 0) var(--tw-gradient-to-position);--tw-gradient-stops:var(--tw-gradient-from), var(--tw-gradient-to)}.from-gray-50{--tw-gradient-from:#f9fafb var(--tw-gradient-from-position);--tw-gradient-to:rgb(249 250 251 / 0) var(--tw-gradient-to-position);--tw-gradient-stops:var(--tw-gradient-from), var(--tw-gradient-to)}.from-white{--tw-gradient-from:#fff var(--tw-gradient-from-position);--tw-gradient-to:rgb(255 255 255 / 0) var(--tw-gradient-to-position);--tw-gradient-stops:var(--tw-gradient-from), var(--tw-gradient-to)}.from-yellow-100{--tw-gradient-from:#fef9c3 var(--tw-gradient-from-position);--tw-gradient-to:rgb(254 249 195 / 0) var(--tw-gradient-to-position);--tw-gradient-stops:var(--tw-gradient-from), var(--tw-gradient-to)}.from-yellow-400{--tw-gradient-from:#facc15 var(--tw-gradient-from-position);--tw-gradient-to:rgb(250 204 21 / 0) var(--tw-gradient-to-position);--tw-gradient-stops:var(--tw-gradient-from), var(--tw-gradient-to)}.to-blue-50{--tw-gradient-to:#eff6ff var(--tw-gradient-to-position)}.to-blue-700{--tw-gradient-to:#1d4ed8 var(--tw-gradient-to-position)}.to-blue-800{--tw-gradient-to:#1e40af var(--tw-gradient-to-position)}.to-gray-50{--tw-gradient-to:#f9fafb var(--tw-gradient-to-position)}.to-white{--tw-gradient-to:#fff var(--tw-gradient-to-position)}.to-yellow-400{--tw-gradient-to:#facc15 var(--tw-gradient-to-position)}.to-yellow-50{--tw-gradient-to:#fefce8 var(--tw-gradient-to-position)}.to-yellow-500{--tw-gradient-to:#eab308 var(--tw-gradient-to-position)}.object-cover{object-fit:cover}.p-1{padding:0.25rem}.p-2{padding:0.5rem}.p-4{padding:1rem}.p-6{padding:1.5rem}.p-8{padding:2rem}.px-3{padding-left:0.75rem;padding-right:0.75rem}.px-4{padding-left:1rem;padding-right:1rem}.px-6{padding-left:1.5rem;padding-right:1.5rem}.px-8{padding-left:2rem;padding-right:2rem}.py-1{padding-top:0.25rem;padding-bottom:0.25rem}.py-16{padding-top:4rem;padding-bottom:4rem}.py-2{padding-top:0.5rem;padding-bottom:0.5rem}.py-3{padding-top:0.75rem;padding-bottom:0.75rem}.py-4{padding-top:1rem;padding-bottom:1rem}.pb-8{padding-bottom:2rem}.pt-12{padding-top:3rem}.pt-8{padding-top:2rem}.text-center{text-align:center}.text-2xl{font-size:1.5rem;line-height:2rem}.text-3xl{font-size:1.875rem;line-height:2.25rem}.text-4xl{font-size:2.25rem;line-height:2.5rem}.text-lg{font-size:1.125rem;line-height:1.75rem}.text-sm{font-size:0.875rem;line-height:1.25rem}.text-xl{font-size:1.25rem;line-height:1.75rem}.text-xs{font-size:0.75rem;line-height:1rem}.font-bold{font-weight:700}.font-medium{font-weight:500}.text-blue-600{--tw-text-opacity:1;color:rgb(37 99 235 / var(--tw-text-opacity, 1))}.text-blue-800{--tw-text-opacity:1;color:rgb(30 64 175 / var(--tw-text-opacity, 1))}.text-gray-500{--tw-text-opacity:1;color:rgb(107 114 128 / var(--tw-text-opacity, 1))}.text-gray-600{--tw-text-opacity:1;color:rgb(75 85 99 / var(--tw-text-opacity, 1))}.text-gray-700{--tw-text-opacity:1;color:rgb(55 65 81 / var(--tw-text-opacity, 1))}.text-white{--tw-text-opacity:1;color:rgb(255 255 255 / var(--tw-text-opacity, 1))}.text-yellow-400{--tw-text-opacity:1;color:rgb(250 204 21 / var(--tw-text-opacity, 1))}.text-yellow-500{--tw-text-opacity:1;color:rgb(234 179 8 / var(--tw-text-opacity, 1))}.opacity-10{opacity:0.1}.opacity-20{opacity:0.2}.opacity-50{opacity:0.5}.opacity-80{opacity:0.8}.opacity-90{opacity:0.9}.shadow-2xl{--tw-shadow:0 25px 50px -12px rgb(0 0 0 / 0.25);--tw-shadow-colored:0 25px 50px -12px var(--tw-shadow-color);box-shadow:var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow)}.shadow-lg{--tw-shadow:0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);--tw-shadow-colored:0 10px 15px -3px var(--tw-shadow-color), 0 4px 6px -4px var(--tw-shadow-color);box-shadow:var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow)}.transition{transition-property:color, background-color, border-color, fill, stroke, opacity, box-shadow, transform, filter, -webkit-text-decoration-color, -webkit-backdrop-filter;transition-property:color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter;transition-property:color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter, -webkit-text-decoration-color, -webkit-backdrop-filter;transition-timing-function:cubic-bezier(0.4, 0, 0.2, 1);transition-duration:150ms}.duration-300{transition-duration:300ms}.hover\:scale-105:hover{--tw-scale-x:1.05;--tw-scale-y:1.05;transform:translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))}.hover\:bg-blue-600:hover{--tw-bg-opacity:1;background-color:rgb(37 99 235 / var(--tw-bg-opacity, 1))}.hover\:bg-blue-700:hover{--tw-bg-opacity:1;background-color:rgb(29 78 216 / var(--tw-bg-opacity, 1))}.hover\:bg-gray-100:hover{--tw-bg-opacity:1;background-color:rgb(243 244 246 / var(--tw-bg-opacity, 1))}.hover\:bg-yellow-300:hover{--tw-bg-opacity:1;background-color:rgb(253 224 71 / var(--tw-bg-opacity, 1))}.hover\:text-yellow-400:hover{--tw-text-opacity:1;color:rgb(250 204 21 / var(--tw-text-opacity, 1))}@media (min-width: 768px){.md\:block{display:block}.md\:hidden{display:none}.md\:grid-cols-2{grid-template-columns:repeat(2, minmax(0, 1fr))}.md\:grid-cols-3{grid-template-columns:repeat(3, minmax(0, 1fr))}.md\:grid-cols-4{grid-template-columns:repeat(4, minmax(0, 1fr))}.md\:py-24{padding-top:6rem;padding-bottom:6rem}.md\:text-5xl{font-size:3rem;line-height:1}}@media (min-width: 1024px){.lg\:order-1{order:1}.lg\:order-2{order:2}.lg\:grid-cols-2{grid-template-columns:repeat(2, minmax(0, 1fr))}.lg\:grid-cols-3{grid-template-columns:repeat(3, minmax(0, 1fr))}.lg\:grid-cols-6{grid-template-columns:repeat(6, minmax(0, 1fr))}}</style></head>
+<body class="bg-gray-50">
+    <!-- Header & Navigation -->
+    <header class="sticky top-0 z-50 bg-white shadow-lg">
+        <div class="container mx-auto px-4">
+            <div class="flex justify-between items-center py-4">
+                <!-- Logo -->
+                <div class="flex items-center space-x-3">
+                    <div class="w-12 h-12 bg-blue-600 rounded-full flex items-center justify-center">
+                        <i class="fas fa-building text-white text-xl"></i>
+                    </div>
+                    <div>
+                        <h1 class="text-xl font-bold text-blue-800">DPM-PTSP</h1>
+                        <p class="text-xs text-gray-600">Kota Surabaya</p>
+                    </div>
+                </div>
+                
+                <!-- Desktop Navigation -->
+                <nav class="hidden md:block">
+                    <ul class="flex space-x-8">
+                        <li><a href="#" class="text-blue-600 font-medium hover:text-yellow-400 transition duration-300">Beranda</a></li>
+                        <li><a href="#" class="text-gray-700 font-medium hover:text-yellow-400 transition duration-300">Tentang Kami</a></li>
+                        <li><a href="#" class="text-gray-700 font-medium hover:text-yellow-400 transition duration-300">Investasi</a></li>
+                        <li><a href="#" class="text-gray-700 font-medium hover:text-yellow-400 transition duration-300">Aplikasi</a></li>
+                        <li><a href="#" class="text-gray-700 font-medium hover:text-yellow-400 transition duration-300">Pelayanan</a></li>
+                        <li><a href="#" class="text-gray-700 font-medium hover:text-yellow-400 transition duration-300">Informasi</a></li>
+                        <li><a href="#" class="bg-yellow-400 text-blue-800 font-bold px-4 py-2 rounded-lg hover:bg-yellow-300 transition duration-300">Kontak</a></li>
+                    </ul>
+                </nav>
+                
+                <!-- Mobile menu button -->
+                <button id="mobile-menu-button" class="md:hidden text-blue-600">
+                    <i class="fas fa-bars text-2xl"></i>
+                </button>
+            </div>
+            
+            <!-- Mobile Navigation (hidden by default) -->
+            <div id="mobile-menu" class="hidden md:hidden py-4 border-t border-gray-200">
+                <ul class="space-y-4">
+                    <li><a href="#" class="block text-blue-600 font-medium">Beranda</a></li>
+                    <li><a href="#" class="block text-gray-700 font-medium">Tentang Kami</a></li>
+                    <li><a href="#" class="block text-gray-700 font-medium">Investasi</a></li>
+                    <li><a href="#" class="block text-gray-700 font-medium">Aplikasi</a></li>
+                    <li><a href="#" class="block text-gray-700 font-medium">Pelayanan</a></li>
+                    <li><a href="#" class="block text-gray-700 font-medium">Informasi</a></li>
+                    <li><a href="#" class="block bg-yellow-400 text-blue-800 font-bold px-4 py-2 rounded-lg text-center">Kontak</a></li>
+                </ul>
+            </div>
         </div>
-    </div>
-</div>
-</header>
+    </header>
 
-<!-- NAVBAR -->
-<nav class="bg-white shadow-md sticky top-0 z-40">
-<div class="max-w-7xl mx-auto px-4 flex items-center justify-between h-20">
-    <div><img src="gambar/logohitam.png" class="h-10" alt="Logo"></div>
+    <!-- Hero Section dengan Carousel -->
+    <section class="relative overflow-hidden hero-gradient">
+        <div class="container mx-auto px-4 py-16 md:py-24">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                <div class="text-white animate-fadeInUp animate__animated animate__fadeInUp">
+                    <h1 class="text-4xl md:text-5xl font-bold mb-4">Investasi &amp; Perizinan Terpadu</h1>
+                    <p class="text-xl mb-8 opacity-90">Dinas Penanaman Modal dan Pelayanan Terpadu Satu Pintu Kota Surabaya</p>
+                    <div class="flex flex-wrap gap-4">
+                        <a href="#" class="bg-yellow-400 text-blue-800 font-bold px-6 py-3 rounded-lg hover:bg-yellow-300 transition duration-300 transform hover:scale-105">
+                            Mulai Berinvestasi <i class="fas fa-arrow-right ml-2"></i>
+                        </a>
+                        <a href="#" class="bg-white text-blue-600 font-bold px-6 py-3 rounded-lg hover:bg-gray-100 transition duration-300">
+                            Lihat Layanan <i class="fas fa-list ml-2"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Carousel -->
+                <div class="relative slide-in">
+                    <div id="hero-carousel" class="relative overflow-hidden rounded-2xl shadow-2xl">
+                        <!-- Carousel items -->
+                        <div class="carousel-item active">
+                            <div class="bg-gradient-to-r from-blue-600 to-blue-800 p-8 rounded-2xl">
+                                <div class="text-white">
+                                    <h3 class="text-2xl font-bold mb-4">Klinik Investasi Surabaya</h3>
+                                    <p class="mb-6">Konsultasi perizinan usaha di Kota Surabaya dengan tim ahli kami.</p>
+                                    <a href="#" class="inline-flex items-center text-yellow-400 font-medium">
+                                        Selengkapnya <i class="fas fa-chevron-right ml-2"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Carousel indicators -->
+                    <div class="flex justify-center mt-6 space-x-2">
+                        <button class="w-3 h-3 rounded-full bg-white"></button>
+                        <button class="w-3 h-3 rounded-full bg-white opacity-50"></button>
+                        <button class="w-3 h-3 rounded-full bg-white opacity-50"></button>
+                        <button class="w-3 h-3 rounded-full bg-white opacity-50"></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Decorative elements -->
+        <div class="absolute top-0 right-0 w-64 h-64 bg-yellow-400 rounded-full opacity-10 -translate-y-32 translate-x-32"></div>
+        <div class="absolute bottom-0 left-0 w-96 h-96 bg-blue-600 rounded-full opacity-10 -translate-x-64 translate-y-64"></div>
+    </section>
 
-    <!-- DESKTOP MENU -->
-    <ul class="hidden md:flex gap-6 items-center text-gray-800">
-        <li><a href="#" class="hover:text-blue-700 translate" data-id="Beranda">Beranda</a></li>
-        <li class="relative group">
-            <a href="#" class="hover:text-blue-700 translate" data-id="Tentang Kami">Tentang Kami</a>
-            <ul class="absolute left-0 mt-2 hidden group-hover:block bg-white shadow-lg rounded-lg p-4">
-                <li><a href="#" class="block py-1 hover:text-blue-700 translate" data-id="Profil">Profil</a></li>
-                <li><a href="#" class="block py-1 hover:text-blue-700 translate" data-id="Struktur Organisasi">Struktur Organisasi</a></li>
-                <li><a href="#" class="block py-1 hover:text-blue-700 translate" data-id="Visi & Misi">Visi & Misi</a></li>
-            </ul>
-        </li>
-        <li><a href="#" class="hover:text-blue-700 translate" data-id="Investasi">Investasi</a></li>
-        <li><a href="#" class="hover:text-blue-700 translate" data-id="Aplikasi">Aplikasi</a></li>
-        <li><a href="#" class="hover:text-blue-700 translate" data-id="Kontak">Kontak</a></li>
-        <button id="lang-btn" onclick="translatePage()" class="px-4 py-2 bg-yellow-400 text-black rounded translate" data-id="🇮🇩 ID">
-            🇮🇩 ID
-        </button>
-    </ul>
+    <!-- Tentang Kami Section -->
+    <section class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+                <div class="animate-fadeInUp animate__animated animate__fadeInUp">
+                    <h2 class="text-3xl font-bold text-blue-800 mb-6">Selamat Datang di DPM-PTSP Surabaya</h2>
+                    <p class="text-gray-700 mb-6">
+                        Dinas Penanaman Modal dan Pelayanan Terpadu Satu Pintu (DPMPTSP) Kota Surabaya merupakan lembaga yang memegang peranan dan fungsi strategis di bidang penyelenggaraan pelayanan perizinan terpadu Kota Surabaya.
+                    </p>
+                    <p class="text-gray-700 mb-8">
+                        Kami hadir untuk memudahkan proses perizinan dan investasi di Kota Surabaya dengan pelayanan yang cepat, transparan, dan terintegrasi.
+                    </p>
+                    <a href="#" class="inline-flex items-center bg-blue-600 text-white font-bold px-6 py-3 rounded-lg hover:bg-blue-700 transition duration-300">
+                        Selengkapnya Tentang Kami <i class="fas fa-arrow-right ml-2"></i>
+                    </a>
+                </div>
+                
+                <div class="relative">
+                    <div class="bg-gradient-to-br from-blue-600 to-yellow-400 p-1 rounded-2xl shadow-custom">
+                        <div class="bg-white p-2 rounded-xl">
+                            <img src="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?ixlib=rb-4.0.3&amp;ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&amp;auto=format&amp;fit=crop&amp;w=1170&amp;q=80" alt="Kantor DPM-PTSP Surabaya" class="w-full h-64 object-cover rounded-lg">
+                        </div>
+                    </div>
+                    
+                    <!-- Decorative elements -->
+                    <div class="absolute -top-4 -right-4 w-20 h-20 bg-yellow-400 rounded-full flex items-center justify-center shadow-lg">
+                        <i class="fas fa-award text-blue-800 text-2xl"></i>
+                    </div>
+                    <div class="absolute -bottom-4 -left-4 w-16 h-16 bg-blue-600 rounded-full flex items-center justify-center shadow-lg">
+                        <i class="fas fa-star text-white text-xl"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-    <!-- MOBILE BUTTON -->
-    <button id="mobileBtn" class="md:hidden text-2xl"><i class="fas fa-bars"></i></button>
-</div>
-</nav>
+    <!-- Mengapa Surabaya Section -->
+    <section class="py-16 bg-gradient-to-b from-gray-50 to-white">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-blue-800 mb-4">Mengapa Berinvestasi di Surabaya?</h2>
+                <p class="text-gray-600 max-w-2xl mx-auto">Kota Surabaya menawarkan berbagai keunggulan sebagai destinasi investasi terbaik di Indonesia.</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Item 1 -->
+                <div class="bg-white rounded-2xl p-6 shadow-custom card-hover">
+                    <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mb-6">
+                        <i class="fas fa-chart-line text-blue-600 text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-blue-800 mb-4">Iklim Investasi yang Kondusif</h3>
+                    <p class="text-gray-700 mb-6">Pembangunan di Surabaya tumbuh sangat cepat dengan dukungan kebijakan yang pro-investasi.</p>
+                    <a href="#" class="text-blue-600 font-medium inline-flex items-center">
+                        Pelajari Lebih Lanjut <i class="fas fa-arrow-right ml-2"></i>
+                    </a>
+                </div>
+                
+                <!-- Item 2 -->
+                <div class="bg-white rounded-2xl p-6 shadow-custom card-hover">
+                    <div class="w-16 h-16 bg-yellow-100 rounded-full flex items-center justify-center mb-6">
+                        <i class="fas fa-city text-yellow-500 text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-blue-800 mb-4">Kota Metropolitan Terbesar Kedua</h3>
+                    <p class="text-gray-700 mb-6">Sebagai kota metropolitan terbesar kedua di Indonesia, Surabaya menjadi pusat ekonomi regional.</p>
+                    <a href="#" class="text-blue-600 font-medium inline-flex items-center">
+                        Pelajari Lebih Lanjut <i class="fas fa-arrow-right ml-2"></i>
+                    </a>
+                </div>
+                
+                <!-- Item 3 -->
+                <div class="bg-white rounded-2xl p-6 shadow-custom card-hover">
+                    <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mb-6">
+                        <i class="fas fa-ship text-blue-600 text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-blue-800 mb-4">Bandara &amp; Pelabuhan Internasional</h3>
+                    <p class="text-gray-700 mb-6">Dilengkapi dengan bandara dan pelabuhan berstandar internasional untuk mendukung logistik.</p>
+                    <a href="#" class="text-blue-600 font-medium inline-flex items-center">
+                        Pelajari Lebih Lanjut <i class="fas fa-arrow-right ml-2"></i>
+                    </a>
+                </div>
+            </div>
+            
+            <div class="text-center mt-12">
+                <a href="#" class="inline-flex items-center bg-yellow-400 text-blue-800 font-bold px-8 py-3 rounded-lg hover:bg-yellow-300 transition duration-300">
+                    Lihat Semua Keunggulan <i class="fas fa-chevron-down ml-2"></i>
+                </a>
+            </div>
+        </div>
+    </section>
 
-<!-- MOBILE MENU -->
-<div id="mobileMenu" class="fixed top-0 left-0 w-64 h-full bg-white shadow-xl z-50 transform -translate-x-full transition-transform">
-<div class="p-4 flex justify-between items-center border-b">
-    <img src="gambar/logohitam.png" class="h-10">
-    <button id="closeMenu" class="text-2xl"><i class="fas fa-times"></i></button>
-</div>
-<ul class="p-4 space-y-4">
-    <li><a href="#" class="translate" data-id="Beranda">Beranda</a></li>
-    <li>
-        <button onclick="toggleDropdown('m1')" class="w-full flex justify-between items-center translate" data-id="Tentang Kami">
-            Tentang Kami <i class="fas fa-chevron-down" id="m1-icon"></i>
-        </button>
-        <ul id="m1" class="ml-4 mt-2 hidden space-y-2">
-            <li><a href="#" class="translate" data-id="Profil">Profil</a></li>
-            <li><a href="#" class="translate" data-id="Struktur Organisasi">Struktur Organisasi</a></li>
-            <li><a href="#" class="translate" data-id="Visi & Misi">Visi & Misi</a></li>
-        </ul>
-    </li>
-    <li><a href="#" class="translate" data-id="Investasi">Investasi</a></li>
-    <li><a href="#" class="translate" data-id="Aplikasi">Aplikasi</a></li>
-    <li><a href="#" class="translate" data-id="Kontak">Kontak</a></li>
-</ul>
-</div>
+    <!-- Peta Potensi Section -->
+    <section class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                <div class="order-2 lg:order-1">
+                    <div class="relative rounded-2xl overflow-hidden shadow-2xl">
+                        <div class="bg-gradient-to-r from-blue-600 to-blue-800 p-8 h-full">
+                            <div class="text-white">
+                                <h3 class="text-2xl font-bold mb-4">Peta Potensi Investasi Surabaya</h3>
+                                <p class="mb-6">Temukan sektor unggulan dan peluang investasi di setiap wilayah Kota Surabaya dengan peta interaktif kami.</p>
+                                <a href="#" class="inline-flex items-center bg-yellow-400 text-blue-800 font-bold px-6 py-3 rounded-lg hover:bg-yellow-300 transition duration-300">
+                                    Jelajahi Peta <i class="fas fa-map-marked-alt ml-2"></i>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="absolute top-0 right-0 w-32 h-32 bg-yellow-400 rounded-full opacity-20 -translate-y-16 translate-x-16"></div>
+                    </div>
+                </div>
+                
+                <div class="order-1 lg:order-2">
+                    <h2 class="text-3xl font-bold text-blue-800 mb-6">Rencana Strategis 2021-2026</h2>
+                    <p class="text-gray-700 mb-6">
+                        Surabaya terus mengembangkan potensi investasi di berbagai sektor dengan fokus pada pertumbuhan ekonomi berkelanjutan.
+                    </p>
+                    <div class="space-y-4">
+                        <div class="flex items-start">
+                            <div class="w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center mr-4 flex-shrink-0">
+                                <i class="fas fa-check text-white"></i>
+                            </div>
+                            <p class="text-gray-700">Menyajikan informasi sektor unggulan potensi investasi di setiap kawasan tertentu.</p>
+                        </div>
+                        <div class="flex items-start">
+                            <div class="w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center mr-4 flex-shrink-0">
+                                <i class="fas fa-check text-white"></i>
+                            </div>
+                            <p class="text-gray-700">Analisis data real-time untuk pengambilan keputusan investasi yang tepat.</p>
+                        </div>
+                        <div class="flex items-start">
+                            <div class="w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center mr-4 flex-shrink-0">
+                                <i class="fas fa-check text-white"></i>
+                            </div>
+                            <p class="text-gray-700">Panduan investasi lengkap untuk pemula hingga investor berpengalaman.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-<!-- MAIN CONTENT -->
-<main class="max-w-7xl mx-auto px-4 py-8 grid grid-cols-1 lg:grid-cols-3 gap-8">
-<div class="lg:col-span-2 bg-white rounded-2xl shadow-xl p-6">
-    <a href="beritalist.html" class="inline-flex items-center px-4 py-2 bg-yellow-400 text-black rounded-full mb-4 hover:bg-yellow-500 translate" data-id="Kembali ke Berita">
-        <i class="fas fa-arrow-left mr-2"></i> Kembali ke Berita
-    </a>
+    <!-- Video Terupdate Section -->
+    <section class="py-16 bg-gradient-to-b from-white to-gray-50">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-blue-800 mb-4">Video Terupdate</h2>
+                <p class="text-gray-600 max-w-2xl mx-auto">Ikuti perkembangan terbaru seputar investasi dan pelayanan perizinan di Kota Surabaya.</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Video 1 -->
+                <div class="bg-white rounded-2xl overflow-hidden shadow-custom card-hover">
+                    <div class="relative">
+                        <div class="h-48 bg-gradient-to-r from-blue-500 to-blue-700 flex items-center justify-center">
+                            <div class="w-16 h-16 bg-white rounded-full flex items-center justify-center">
+                                <i class="fas fa-play text-blue-600 text-2xl"></i>
+                            </div>
+                        </div>
+                        <div class="absolute top-4 right-4 bg-yellow-400 text-blue-800 text-xs font-bold px-3 py-1 rounded-full">
+                            Baru
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-lg font-bold text-blue-800 mb-3">Pesona Buaya September 2024</h3>
+                        <p class="text-gray-600 text-sm mb-4">Video terbaru perkembangan investasi dan pariwisata Surabaya.</p>
+                        <a href="#" class="text-blue-600 font-medium inline-flex items-center text-sm">
+                            Tonton Video <i class="fas fa-play ml-2"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Video 2 -->
+                <div class="bg-white rounded-2xl overflow-hidden shadow-custom card-hover">
+                    <div class="relative">
+                        <div class="h-48 bg-gradient-to-r from-yellow-400 to-yellow-500 flex items-center justify-center">
+                            <div class="w-16 h-16 bg-white rounded-full flex items-center justify-center">
+                                <i class="fas fa-play text-blue-600 text-2xl"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-lg font-bold text-blue-800 mb-3">Surabaya Great Expo 2024</h3>
+                        <p class="text-gray-600 text-sm mb-4">Highlight acara eksposisi terbesar di Surabaya tahun 2024.</p>
+                        <a href="#" class="text-blue-600 font-medium inline-flex items-center text-sm">
+                            Tonton Video <i class="fas fa-play ml-2"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Video 3 -->
+                <div class="bg-white rounded-2xl overflow-hidden shadow-custom card-hover">
+                    <div class="relative">
+                        <div class="h-48 bg-gradient-to-r from-blue-600 to-blue-800 flex items-center justify-center">
+                            <div class="w-16 h-16 bg-white rounded-full flex items-center justify-center">
+                                <i class="fas fa-play text-blue-600 text-2xl"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-lg font-bold text-blue-800 mb-3">Pesona Buaya Juli 2024</h3>
+                        <p class="text-gray-600 text-sm mb-4">Video perkembangan investasi dan pembangunan Surabaya.</p>
+                        <a href="#" class="text-blue-600 font-medium inline-flex items-center text-sm">
+                            Tonton Video <i class="fas fa-play ml-2"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center mt-12">
+                <a href="#" class="inline-flex items-center bg-blue-600 text-white font-bold px-8 py-3 rounded-lg hover:bg-blue-700 transition duration-300">
+                    Lihat Semua Video <i class="fas fa-video ml-2"></i>
+                </a>
+            </div>
+        </div>
+    </section>
 
-    <div class="mb-4">
-        <span class="inline-flex items-center px-3 py-1 rounded-full bg-blue-600 text-white text-sm translate" data-id="<?= $article['category'] ?>">
-            <i class="fas fa-newspaper mr-1"></i> <?= $article['category'] ?>
-        </span>
-        <span class="text-sm text-gray-500 translate" data-id="<?= $article['date'] ?>"><?= $article['date'] ?></span>
-    </div>
-    <h1 class="text-2xl font-bold mb-4 translate" data-id="<?= htmlspecialchars($article['title']) ?>"><?= $article['title'] ?></h1>
-    <p class="text-gray-700 translate mb-6" data-id="<?= htmlspecialchars($article['content']) ?>"><?= $article['content'] ?></p>
+    <!-- Berita & Artikel Section -->
+    <section class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-blue-800 mb-4">Berita &amp; Artikel Terupdate</h2>
+                <p class="text-gray-600 max-w-2xl mx-auto">Informasi terkini seputar perizinan, investasi, dan perkembangan Kota Surabaya.</p>
+            </div>
+            
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12">
+                <!-- Featured Artikel -->
+                <div class="bg-gradient-to-r from-blue-600 to-blue-800 rounded-2xl overflow-hidden shadow-2xl">
+                    <div class="p-8 text-white">
+                        <div class="mb-4">
+                            <span class="bg-yellow-400 text-blue-800 text-xs font-bold px-3 py-1 rounded-full">ARTIKEL PERIZINAN</span>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-4">Layanan Drive Thru PATAS Mengalami Peningkatan Pemanfaatan pada November Ini</h3>
+                        <p class="mb-6 opacity-90">Pelayanan perizinan drive thru semakin populer di kalangan pelaku usaha Surabaya dengan peningkatan signifikan dalam beberapa bulan terakhir.</p>
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center">
+                                <i class="far fa-calendar-alt mr-2"></i>
+                                <span>24 Nov 2025</span>
+                            </div>
+                            <a href="#" class="bg-white text-blue-600 font-bold px-4 py-2 rounded-lg hover:bg-gray-100 transition duration-300">
+                                Baca Selengkapnya
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Featured Artikel 2 -->
+                <div class="bg-gradient-to-r from-yellow-400 to-yellow-500 rounded-2xl overflow-hidden shadow-2xl">
+                    <div class="p-8 text-blue-800">
+                        <div class="mb-4">
+                            <span class="bg-blue-600 text-white text-xs font-bold px-3 py-1 rounded-full">ARTIKEL INVESTASI</span>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-4">Capaian Realisasi Investasi PMDN Non-UMK Kota Surabaya Triwulan II Tahun 2025</h3>
+                        <p class="mb-6">Analisis mendalam mengenai perkembangan investasi di Surabaya pada triwulan kedua tahun 2025 dengan pertumbuhan yang signifikan.</p>
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center">
+                                <i class="far fa-calendar-alt mr-2"></i>
+                                <span>28 Agt 2025</span>
+                            </div>
+                            <a href="#" class="bg-blue-600 text-white font-bold px-4 py-2 rounded-lg hover:bg-blue-700 transition duration-300">
+                                Baca Selengkapnya
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Grid Berita -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Berita 1 -->
+                <div class="bg-white rounded-2xl p-6 shadow-custom card-hover">
+                    <div class="mb-4">
+                        <div class="h-48 bg-gradient-to-r from-blue-500 to-blue-700 rounded-lg mb-4"></div>
+                        <h3 class="text-lg font-bold text-blue-800 mb-3">Pemkot Surabaya Adakan Kegiatan High Level Marketing</h3>
+                        <p class="text-gray-600 text-sm mb-4">Kegiatan ini bertujuan untuk memperkuat sinergi kebijakan dan pertumbuhan ekonomi di Surabaya.</p>
+                    </div>
+                    <div class="flex items-center justify-between">
+                        <div class="text-sm text-gray-500">
+                            <i class="far fa-calendar-alt mr-1"></i> 16 Des 2025
+                        </div>
+                        <a href="#" class="text-blue-600 font-medium text-sm">
+                            Baca <i class="fas fa-arrow-right ml-1"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Berita 2 -->
+                <div class="bg-white rounded-2xl p-6 shadow-custom card-hover">
+                    <div class="mb-4">
+                        <div class="h-48 bg-gradient-to-r from-yellow-400 to-yellow-500 rounded-lg mb-4"></div>
+                        <h3 class="text-lg font-bold text-blue-800 mb-3">Pemkot Tangerang Studi Tiru ke Pemkot Surabaya</h3>
+                        <p class="text-gray-600 text-sm mb-4">Kunjungan studi tiru terkait percepatan pelayanan perizinan dan non perizinan.</p>
+                    </div>
+                    <div class="flex items-center justify-between">
+                        <div class="text-sm text-gray-500">
+                            <i class="far fa-calendar-alt mr-1"></i> 16 Des 2025
+                        </div>
+                        <a href="#" class="text-blue-600 font-medium text-sm">
+                            Baca <i class="fas fa-arrow-right ml-1"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Berita 3 -->
+                <div class="bg-white rounded-2xl p-6 shadow-custom card-hover">
+                    <div class="mb-4">
+                        <div class="h-48 bg-gradient-to-r from-blue-600 to-blue-800 rounded-lg mb-4"></div>
+                        <h3 class="text-lg font-bold text-blue-800 mb-3">DPMPTSP Terima Kunjungan Kementerian Investasi</h3>
+                        <p class="text-gray-600 text-sm mb-4">Kunjungan untuk fasilitasi pelaku UMKM dalam pengembangan usaha dan perizinan.</p>
+                    </div>
+                    <div class="flex items-center justify-between">
+                        <div class="text-sm text-gray-500">
+                            <i class="far fa-calendar-alt mr-1"></i> 16 Des 2025
+                        </div>
+                        <a href="#" class="text-blue-600 font-medium text-sm">
+                            Baca <i class="fas fa-arrow-right ml-1"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center mt-12">
+                <a href="#" class="inline-flex items-center bg-yellow-400 text-blue-800 font-bold px-8 py-3 rounded-lg hover:bg-yellow-300 transition duration-300">
+                    Lihat Semua Berita <i class="fas fa-newspaper ml-2"></i>
+                </a>
+            </div>
+        </div>
+    </section>
 
-    <div class="mb-4">
-        <?php foreach($article['tags'] as $tag): ?>
-            <span class="inline-block px-3 py-1 bg-gray-200 rounded-full text-sm text-gray-700 mr-2 mb-2 translate" data-id="#<?= $tag ?>">#<?= $tag ?></span>
-        <?php endforeach; ?>
-    </div>
-</div>
+    <!-- Instansi Terkait Section -->
+    <section class="py-16 bg-gradient-to-b from-gray-50 to-white">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-blue-800 mb-4">Instansi Terkait</h2>
+                <p class="text-gray-600 max-w-2xl mx-auto">Kolaborasi dengan berbagai instansi untuk pelayanan investasi dan perizinan yang lebih baik.</p>
+            </div>
+            
+            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
+                <!-- Instansi 1 -->
+                <div class="bg-white rounded-xl p-4 flex items-center justify-center shadow-custom card-hover">
+                    <div class="w-24 h-24 bg-gradient-to-r from-blue-100 to-blue-50 rounded-lg flex items-center justify-center">
+                        <i class="fas fa-university text-blue-600 text-3xl"></i>
+                    </div>
+                </div>
+                
+                <!-- Instansi 2 -->
+                <div class="bg-white rounded-xl p-4 flex items-center justify-center shadow-custom card-hover">
+                    <div class="w-24 h-24 bg-gradient-to-r from-yellow-100 to-yellow-50 rounded-lg flex items-center justify-center">
+                        <i class="fas fa-handshake text-yellow-500 text-3xl"></i>
+                    </div>
+                </div>
+                
+                <!-- Instansi 3 -->
+                <div class="bg-white rounded-xl p-4 flex items-center justify-center shadow-custom card-hover">
+                    <div class="w-24 h-24 bg-gradient-to-r from-blue-100 to-blue-50 rounded-lg flex items-center justify-center">
+                        <i class="fas fa-landmark text-blue-600 text-3xl"></i>
+                    </div>
+                </div>
+                
+                <!-- Instansi 4 -->
+                <div class="bg-white rounded-xl p-4 flex items-center justify-center shadow-custom card-hover">
+                    <div class="w-24 h-24 bg-gradient-to-r from-yellow-100 to-yellow-50 rounded-lg flex items-center justify-center">
+                        <i class="fas fa-globe text-yellow-500 text-3xl"></i>
+                    </div>
+                </div>
+                
+                <!-- Instansi 5 -->
+                <div class="bg-white rounded-xl p-4 flex items-center justify-center shadow-custom card-hover">
+                    <div class="w-24 h-24 bg-gradient-to-r from-blue-100 to-blue-50 rounded-lg flex items-center justify-center">
+                        <i class="fas fa-balance-scale text-blue-600 text-3xl"></i>
+                    </div>
+                </div>
+                
+                <!-- Instansi 6 -->
+                <div class="bg-white rounded-xl p-4 flex items-center justify-center shadow-custom card-hover">
+                    <div class="w-24 h-24 bg-gradient-to-r from-yellow-100 to-yellow-50 rounded-lg flex items-center justify-center">
+                        <i class="fas fa-chart-pie text-yellow-500 text-3xl"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-<div class="space-y-6">
-    <div class="bg-white p-4 rounded-2xl shadow-xl">
-        <h2 class="font-bold text-lg mb-4 translate" data-id="Berita Terkait">Berita Terkait</h2>
-        <ul class="space-y-2">
-            <?php foreach($related_news as $news): ?>
-                <li>
-                    <a href="#" class="block hover:text-blue-700 translate" data-id="<?= htmlspecialchars($news['title']) ?>"><?= $news['title'] ?></a>
-                    <span class="text-xs text-gray-500 translate" data-id="<?= $news['date'] ?>"><?= $news['date'] ?></span>
-                </li>
-            <?php endforeach; ?>
-        </ul>
-    </div>
-</div>
-</main>
+    <!-- Footer -->
+    <footer class="bg-blue-800 text-white pt-12 pb-8">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+                <!-- Logo & Deskripsi -->
+                <div>
+                    <div class="flex items-center mb-6">
+                        <div class="w-12 h-12 bg-yellow-400 rounded-full flex items-center justify-center mr-4">
+                            <i class="fas fa-building text-blue-800 text-xl"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-bold">DPM-PTSP</h3>
+                            <p class="text-sm opacity-80">Kota Surabaya</p>
+                        </div>
+                    </div>
+                    <p class="opacity-80 mb-6">
+                        Dinas Penanaman Modal dan Pelayanan Terpadu Satu Pintu Kota Surabaya.
+                    </p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="w-10 h-10 bg-blue-700 rounded-full flex items-center justify-center hover:bg-blue-600 transition duration-300">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 bg-blue-700 rounded-full flex items-center justify-center hover:bg-blue-600 transition duration-300">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 bg-blue-700 rounded-full flex items-center justify-center hover:bg-blue-600 transition duration-300">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 bg-blue-700 rounded-full flex items-center justify-center hover:bg-blue-600 transition duration-300">
+                            <i class="fab fa-youtube"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Kontak -->
+                <div>
+                    <h4 class="text-lg font-bold mb-6">Kontak Kami</h4>
+                    <div class="space-y-4">
+                        <div class="flex items-start">
+                            <i class="fas fa-map-marker-alt mt-1 mr-3 text-yellow-400"></i>
+                            <p class="opacity-80">Mal Pelayanan Publik Lt.3, Jl. Tunjungan No. 1-3 Genteng, Surabaya 60275</p>
+                        </div>
+                        <div class="flex items-center">
+                            <i class="fas fa-phone mr-3 text-yellow-400"></i>
+                            <p class="opacity-80">+623199243924</p>
+                        </div>
+                        <div class="flex items-center">
+                            <i class="fas fa-envelope mr-3 text-yellow-400"></i>
+                            <p class="opacity-80">dpm-ptsp@surabaya.go.id</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Menu Cepat -->
+                <div>
+                    <h4 class="text-lg font-bold mb-6">Menu Cepat</h4>
+                    <ul class="space-y-3">
+                        <li><a href="#" class="opacity-80 hover:text-yellow-400 transition duration-300">Beranda</a></li>
+                        <li><a href="#" class="opacity-80 hover:text-yellow-400 transition duration-300">Tentang Kami</a></li>
+                        <li><a href="#" class="opacity-80 hover:text-yellow-400 transition duration-300">Investasi</a></li>
+                        <li><a href="#" class="opacity-80 hover:text-yellow-400 transition duration-300">Aplikasi</a></li>
+                        <li><a href="#" class="opacity-80 hover:text-yellow-400 transition duration-300">Pelayanan</a></li>
+                    </ul>
+                </div>
+                
+                <!-- Layanan -->
+                <div>
+                    <h4 class="text-lg font-bold mb-6">Layanan Kami</h4>
+                    <ul class="space-y-3">
+                        <li><a href="#" class="opacity-80 hover:text-yellow-400 transition duration-300">Perizinan Usaha</a></li>
+                        <li><a href="#" class="opacity-80 hover:text-yellow-400 transition duration-300">Konsultasi Investasi</a></li>
+                        <li><a href="#" class="opacity-80 hover:text-yellow-400 transition duration-300">Data &amp; Statistik</a></li>
+                        <li><a href="#" class="opacity-80 hover:text-yellow-400 transition duration-300">Pengaduan</a></li>
+                        <li><a href="#" class="opacity-80 hover:text-yellow-400 transition duration-300">Regulasi</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="border-t border-blue-700 pt-8 text-center">
+                <p class="opacity-80">Copyright © 2022 - <span id="currentYear">2026</span> <b>DPM &amp; PTSP Kota Surabaya</b> - All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
 
-<!-- FOOTER -->
-<footer class="bg-gray-900 text-gray-200 p-8 mt-12 translate">
-    <div class="max-w-7xl mx-auto text-center">
-        <p class="mb-2" data-id="Hak Cipta © 2025 DPMPTSP Kota Surabaya. Semua hak dilindungi.">Hak Cipta © 2025 DPMPTSP Kota Surabaya. Semua hak dilindungi.</p>
-        <p data-id="Alamat: Jl. Pahlawan No.1, Surabaya">Alamat: Jl. Pahlawan No.1, Surabaya</p>
-    </div>
-</footer>
+    <!-- JavaScript untuk interaksi -->
+    <script>
+        // Update tahun di footer
+        document.getElementById('currentYear').textContent = new Date().getFullYear();
+        
+        // Mobile menu toggle
+        document.getElementById('mobile-menu-button').addEventListener('click', function() {
+            const mobileMenu = document.getElementById('mobile-menu');
+            mobileMenu.classList.toggle('hidden');
+        });
+        
+        // Simple carousel functionality
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.carousel-item');
+        const indicators = document.querySelectorAll('.carousel-indicators button');
+        
+        function showSlide(index) {
+            // Hide all slides
+            slides.forEach(slide => {
+                slide.classList.remove('active');
+                slide.classList.add('hidden');
+            });
+            
+            // Deactivate all indicators
+            indicators.forEach(indicator => {
+                indicator.classList.remove('bg-white');
+                indicator.classList.add('bg-white', 'opacity-50');
+            });
+            
+            // Show current slide
+            slides[index].classList.remove('hidden');
+            slides[index].classList.add('active');
+            
+            // Activate current indicator
+            indicators[index].classList.remove('opacity-50');
+            indicators[index].classList.add('bg-white');
+            
+            currentSlide = index;
+        }
+        
+        // Initialize carousel
+        if (slides.length > 0 && indicators.length > 0) {
+            // Set up indicator click events
+            indicators.forEach((indicator, index) => {
+                indicator.addEventListener('click', () => {
+                    showSlide(index);
+                });
+            });
+            
+            // Auto-rotate slides every 5 seconds
+            setInterval(() => {
+                let nextSlide = (currentSlide + 1) % slides.length;
+                showSlide(nextSlide);
+            }, 5000);
+        }
+        
+        // Animasi saat scroll
+        function animateOnScroll() {
+            const elements = document.querySelectorAll('.animate-fadeInUp');
+            
+            elements.forEach(element => {
+                const elementPosition = element.getBoundingClientRect().top;
+                const screenPosition = window.innerHeight / 1.2;
+                
+                if (elementPosition < screenPosition) {
+                    element.classList.add('animate__animated', 'animate__fadeInUp');
+                }
+            });
+        }
+        
+        // Jalankan animasi saat scroll
+        window.addEventListener('scroll', animateOnScroll);
+        // Jalankan sekali saat halaman dimuat
+        window.addEventListener('load', animateOnScroll);
+    </script>
 
-<button id="scrollToTop" class="fixed bottom-6 right-6 w-12 h-12 bg-blue-600 text-white rounded-full flex items-center justify-center translate" data-id="Ke Atas">
-    <i class="fas fa-chevron-up"></i>
-</button>
-
-<script>
-window.addEventListener('load', () => { document.getElementById('loader').style.display = 'none'; });
-
-// Date
-const now = new Date();
-document.getElementById('current-date').textContent = now.toLocaleDateString('id-ID', { weekday:'long', year:'numeric', month:'long', day:'numeric' });
-
-// Mobile menu
-const mobileBtn = document.getElementById("mobileBtn");
-const mobileMenu = document.getElementById("mobileMenu");
-const closeMenu = document.getElementById("closeMenu");
-mobileBtn.onclick = () => mobileMenu.classList.remove("-translate-x-full");
-closeMenu.onclick = () => mobileMenu.classList.add("-translate-x-full");
-function toggleDropdown(id){ const el=document.getElementById(id); const icon=document.getElementById(id+"-icon"); el.classList.toggle("hidden"); icon.classList.toggle("fa-chevron-down"); icon.classList.toggle("fa-chevron-up"); }
-
-// Scroll to top
-const scrollBtn = document.getElementById("scrollToTop");
-window.addEventListener("scroll", () => {
-    scrollBtn.style.opacity = window.pageYOffset>300 ? 1 : 0;
-    scrollBtn.style.visibility = window.pageYOffset>300 ? 'visible' : 'hidden';
-});
-scrollBtn.addEventListener("click", ()=> window.scrollTo({ top:0, behavior:'smooth' }));
-
-// Translate all text at once including footer
-let currentLang = "id";
-function translatePage(){
-    const newLang = currentLang==="id"?"en":"id";
-    currentLang = newLang;
-    document.getElementById("lang-btn").innerHTML = newLang==="en"?"🇬🇧 EN":"🇮🇩 ID";
-
-    const elements = document.querySelectorAll(".translate");
-    const texts = {};
-    elements.forEach((el, idx)=>{ texts[idx]=el.getAttribute("data-id"); });
-
-    fetch(window.location.href, {
-        method:"POST",
-        headers:{"Content-Type":"application/x-www-form-urlencoded"},
-        body:"texts="+encodeURIComponent(JSON.stringify(texts))+"&lang="+newLang
-    })
-    .then(r=>r.json())
-    .then(translations=>{
-        elements.forEach((el, idx)=>{ el.innerText = translations[idx]; });
-    });
-}
-</script>
-</body>
-</html>
-
+</body></html>
